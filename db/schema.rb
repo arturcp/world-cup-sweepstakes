@@ -10,27 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180401204441) do
+ActiveRecord::Schema.define(version: 20180401235019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.bigint "rounds_id"
     t.bigint "host_id"
     t.bigint "visitor_id"
     t.boolean "allows_tie", default: true
     t.datetime "date"
     t.string "place", default: ""
+    t.bigint "round_id"
     t.index ["host_id"], name: "index_games_on_host_id"
-    t.index ["rounds_id"], name: "index_games_on_rounds_id"
+    t.index ["round_id"], name: "index_games_on_round_id"
     t.index ["visitor_id"], name: "index_games_on_visitor_id"
   end
 
   create_table "rounds", force: :cascade do |t|
     t.string "name"
-    t.bigint "tournaments_id"
-    t.index ["tournaments_id"], name: "index_rounds_on_tournaments_id"
+    t.bigint "tournament_id"
+    t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -62,11 +62,18 @@ ActiveRecord::Schema.define(version: 20180401204441) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "games", "rounds"
   add_foreign_key "games", "teams", column: "host_id"
   add_foreign_key "games", "teams", column: "visitor_id"
+  add_foreign_key "rounds", "tournaments"
   add_foreign_key "teams", "tournaments"
 end
