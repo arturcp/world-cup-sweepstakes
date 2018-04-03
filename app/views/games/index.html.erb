@@ -1,0 +1,22 @@
+<h1><%= @tournament.name %></h1>
+
+<% @tournament.rounds.each do |round| %>
+  <p><%= round.name %></p>
+
+  <% round.games.each do |game| %>
+    <div class="row">
+      <div class="col s5 right-align">
+        <%= game.host.name %>
+        <img class="flag" src="<%= game.host.flag %>">
+      </div>
+      <div class="col s1 versus">
+        x
+      </div>
+      <div class="col s5 left-align">
+        <img class="flag" src="<%= game.visitor.flag %>">
+        <%= game.visitor.name %>
+      </div>
+    </div>
+  <% end %>
+  <hr>
+<% end %>
