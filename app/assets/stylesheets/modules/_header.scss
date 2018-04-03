@@ -8,8 +8,12 @@
   max-height: 55px;
   margin-top: 5px;
   margin-left: 5px;
+
+  @media #{$small-and-down} {
+    width: 45px;
+  }
 }
 
 .navbar-color {
-  background-color: $primary-background-color;
+  background-color: $primary-color;
 }

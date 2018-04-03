@@ -1,31 +1,44 @@
-.flag {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-}
+#games-container {
+  .game-info {
+    font-size: 10px;
+    clear: both;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 10px;
+  }
 
-.col.s1.versus {
-  width: 5px;
-}
+  .flag {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+  }
 
-.game-info {
-  font-size: 10px;
-  clear: both;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  padding-top: 10px;
-}
+  .col.s1.versus {
+    width: 5px;
+    color: $primary-color;
+  }
 
-.card-content .right-align.host-name {
-  padding-right: 0;
-}
+  .card-content .right-align.host-name {
+    padding-right: 0;
+  }
 
-.card-panel .team-name {
-  display: block;
+  .card-panel .team-name {
+    display: block;
 
-  @media #{$small-and-down} {
-    font-size: 11px;
+    @media #{$small-and-down} {
+      font-size: 11px;
+    }
+  }
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance:textfield;
   }
 }
