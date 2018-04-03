@@ -8,17 +8,22 @@
     </div>
     <div class="col s4 offset-s4">
       <% round.games.each do |game| %>
-        <div class="row card-panel">
-          <div class="col s5 right-align">
-            <%= game.host.name %>
-            <img class="flag" src="<%= game.host.flag %>">
+        <div class="row card card-panel">
+          <div class="card-content">
+            <section>
+              <div class="col s5 right-align">
+                <%= game.host.name %>
+                <img class="flag" src="<%= game.host.flag %>">
+              </div>
+              <div class="col s1 versus">X</div>
+              <div class="col s5 left-align">
+                <img class="flag" src="<%= game.visitor.flag %>">
+                <%= game.visitor.name %>
+              </div>
+            </section>
           </div>
-          <div class="col s1 versus">
-            x
-          </div>
-          <div class="col s5 left-align">
-            <img class="flag" src="<%= game.visitor.flag %>">
-            <%= game.visitor.name %>
+          <div class="card-action">
+            <%= game.date.strftime("%d/%m %H:%M") %> <%= game.place %>
           </div>
         </div>
       <% end %>
