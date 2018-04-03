@@ -21,3 +21,11 @@
 .card-content .right-align.host-name {
   padding-right: 0;
 }
+
+.card-panel .team-name {
+  display: block;
+
+  @media #{$small-and-down} {
+    font-size: 11px;
+  }
+}
