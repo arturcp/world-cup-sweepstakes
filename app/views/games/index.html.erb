@@ -2,7 +2,7 @@
   <p><%= round.name %></p>
 
   <% round.games.each do |game| %>
-    <div class="row">
+    <div class="row card-panel">
       <div class="col s5 right-align">
         <%= game.host.name %>
         <img class="flag" src="<%= game.host.flag %>">
