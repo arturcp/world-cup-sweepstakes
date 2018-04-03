@@ -2,6 +2,6 @@
 
 class GamesController < ApplicationController
   def index
-    @tournament = Tournament.first
+    @tournament = Tournament.friendly.find(params[:tournament_name])
   end
 end
