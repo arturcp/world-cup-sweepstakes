@@ -6,26 +6,36 @@
         <%= round.name %>
       </h3>
     </div>
-    <div class="col s4 offset-s4">
-      <% round.games.each do |game| %>
-        <div class="row card card-panel">
-          <div class="card-content">
-            <div class="col s5 right-align host-name">
-              <span><%= game.host.name %></span>
-              <img class="flag" src="<%= game.host.flag %>">
-              <input class="right-align"/>
+    <div class="col s10 offset-s1">
+      <% round.games.each_with_index do |game, index| %>
+        <% if index.even? %>
+          <div class="row">
+        <% end %>
+
+        <div class="col s12 m6">
+          <div class="card card-panel">
+            <div class="card-content">
+              <div class="col s5 right-align host-name">
+                <span><%= game.host.name %></span>
+                <img class="flag" src="<%= game.host.flag %>">
+                <input class="right-align"/>
+              </div>
+              <div class="col s1 versus">X</div>
+              <div class="col s5 left-align">
+                <img class="flag" src="<%= game.visitor.flag %>">
+                <span><%= game.visitor.name %></span>
+                <input class="left-align"/>
+              </div>
             </div>
-            <div class="col s1 versus">X</div>
-            <div class="col s5 left-align">
-              <img class="flag" src="<%= game.visitor.flag %>">
-              <span><%= game.visitor.name %></span>
-              <input class="left-align"/>
+            <div class="game-info">
+              <%= game.date.strftime("%d/%m %H:%M") %> <%= game.place %>
             </div>
-          </div>
-          <div class="game-info">
-            <%= game.date.strftime("%d/%m %H:%M") %> <%= game.place %>
           </div>
         </div>
+
+        <% if index.odd? %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
