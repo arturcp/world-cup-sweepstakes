@@ -1,8 +1,23 @@
 .flag {
   width: 24px;
   height: 24px;
+  vertical-align: middle;
 }
 
 .col.s1.versus {
   width: 5px;
+}
+
+.game-info {
+  font-size: 10px;
+  clear: both;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  padding-top: 10px;
+}
+
+.card-content .right-align.host-name {
+  padding-right: 0;
 }
