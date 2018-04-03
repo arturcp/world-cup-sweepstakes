@@ -2,12 +2,14 @@
   <div class="navbar-fixed">
     <nav class="navbar-color purple darken-4">
       <div class="nav-wrapper">
-
+        <div class="left">
+          <%= image_tag @tournament.logo, class: 'tournament-logo' %>
+        </div>
         <ul class="left">
           <li class="main-logo hide-on-med-and-down">
-            <h1 class="logo-wrapper">
-
-            </h1>
+            <h3 class="logo-wrapper">
+              <%= @tournament.name %>
+            </h3>
           </li>
         </ul>
       </div>
