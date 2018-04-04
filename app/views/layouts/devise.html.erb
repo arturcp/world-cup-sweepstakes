@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make your bet!</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'devise', media: 'all' %>
+    <%= javascript_include_tag 'devise' %>
+  </head>
+
+  <body>
+    <div id='container'>
+      <%= yield %>
+    </div>
+  </body>
+
+  <script>
+    $(document).ready(function(){
+      <% if flash[:alert] %>
+        M.toast({ html: '<%= flash[:alert] %>' });
+      <% end %>
+
+      <% if flash[:notice] %>
+        M.toast({ html: '<%= flash[:notice] %>' });
+      <% end %>
+    });
+  </script>
+</html>

@@ -1,0 +1,36 @@
+body {
+  width: 100%;
+  background-color: $primary-color;
+  color: #fff;
+  background: url(http://mestredoadwords.com.br/wp-content/uploads/2017/11/Youse-pode-lhe-ensinar-sobre-Marketing-Digital...png);
+}
+
+#container {
+  margin: 0 auto;
+  width: 30%;
+
+  @media #{$medium-and-down} {
+    width: 50%;
+  }
+
+  @media #{$small-and-down} {
+    width: 80%;
+  }
+}
+
+label {
+  color: #fff;
+}
+
+input[type="submit"] {
+  padding: 10px;
+}
+
+input[type="password"],
+input[type="email"] {
+  text-indent: 10px;
+}
+
+a {
+  color: #f4dd1d;
+}
