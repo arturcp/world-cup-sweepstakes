@@ -17,3 +17,8 @@
 .navbar-color {
   background-color: $primary-color;
 }
+
+.logout-button, .user-name {
+  float: right;
+  margin-right: 5px;
+}

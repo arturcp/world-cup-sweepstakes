@@ -12,6 +12,16 @@
             </h3>
           </li>
         </ul>
+
+        <% if user_signed_in? %>
+          <div class="logout-button">
+            <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+          </div>
+          <div class="user-name">
+            Olá, <%= current_user.name %> |
+          </div>
+        <% end %>
+
       </div>
     </nav>
   </div>
