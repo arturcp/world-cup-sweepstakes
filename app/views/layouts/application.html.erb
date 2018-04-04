@@ -10,14 +10,17 @@
   </head>
 
   <body>
-    <% if flash[:alert] %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-
-    <% if flash[:notice] %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-
     <%= yield %>
+    <script>
+      $(document).ready(function(){
+        <% if flash[:alert] %>
+          M.toast({ html: '<%= flash[:alert] %>' });
+        <% end %>
+
+        <% if flash[:notice] %>
+          M.toast({ html: '<%= flash[:notice] %>' });
+        <% end %>
+      });
+    </script>
   </body>
 </html>

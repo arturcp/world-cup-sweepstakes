@@ -13,17 +13,16 @@
     <div id='container'>
       <%= yield %>
     </div>
+    <script>
+      $(document).ready(function(){
+        <% if flash[:alert] %>
+          M.toast({ html: '<%= flash[:alert] %>' });
+        <% end %>
+
+        <% if flash[:notice] %>
+          M.toast({ html: '<%= flash[:notice] %>' });
+        <% end %>
+      });
+    </script>
   </body>
-
-  <script>
-    $(document).ready(function(){
-      <% if flash[:alert] %>
-        M.toast({ html: '<%= flash[:alert] %>' });
-      <% end %>
-
-      <% if flash[:notice] %>
-        M.toast({ html: '<%= flash[:notice] %>' });
-      <% end %>
-    });
-  </script>
 </html>
