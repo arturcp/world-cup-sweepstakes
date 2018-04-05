@@ -9,36 +9,14 @@
         </h3>
       </div>
       <div class="col s10 offset-s1">
-        <% round.games.each_with_index do |game, index| %>
-          <% if index.even? %>
-            <div class="row">
-          <% end %>
-
-          <div class="col m12 l6">
-            <div class="card card-panel">
-              <div class="card-content">
-                <div class="col s5 right-align host-name">
-                  <span class='team-name'><%= game.host.name %></span>
-                  <img class="flag" src="<%= game.host.flag %>">
-                  <%= number_field_tag 'score', {}, class: 'right-align' %>
-                </div>
-                <div class="col s1 versus">X</div>
-                <div class="col s5 left-align">
-                  <span class='team-name'><%= game.visitor.name %></span>
-                  <img class="flag" src="<%= game.visitor.flag %>">
-                  <input class="left-align"/>
-                </div>
-              </div>
-              <div class="game-info">
-                <%= game.date.strftime("%d/%m %H:%M") %> <%= game.place %>
-              </div>
-            </div>
-          </div>
-
-          <% if index.odd? %>
+        <div class="row">
+          <% klass = 'offset-l3' if round.games.count == 1 %>
+          <% round.games.each_with_index do |game, index| %>
+            <div class="col m12 l6 <%= klass %>">
+              <%= render 'game_card', game: game %>
             </div>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
   <% end %>
