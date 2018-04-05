@@ -2,6 +2,7 @@ desc 'Create a tournament with the world cup 2018 data'
 task create_world_cup_2018: :environment do
   # source: https://www.google.com.br/search?ei=va7CWp65BIKgwATQkpqQAQ&q=tablea+jogos+copa+do+mundo&oq=tablea+jogos+copa+do+mundo&gs_l=psy-ab.3...9009.9593.0.9633.7.5.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..7.0.0....0.KJJ1cIMhIBE#sie=lg;/m/06qjc4;2;/m/030q7;mt;fp;1
 
+  # User.find_by(email: 'admin@youse.com.br')&.destroy
   User.delete_all
   Game.delete_all
   Round.delete_all
@@ -59,6 +60,11 @@ task create_world_cup_2018: :environment do
   first_round = Round.create!(tournament: world_cup, name: '1st round')
   second_round = Round.create!(tournament: world_cup, name: '2nd round')
   third_round = Round.create!(tournament: world_cup, name: '3rd round')
+  round_of_16 = Round.create!(tournament: world_cup, name: 'Round of 16')
+  quarter_finals = Round.create!(tournament: world_cup, name: 'Quarter finals')
+  semi_finals = Round.create!(tournament: world_cup, name: 'Semi finals')
+  play_off_third_place = Round.create!(tournament: world_cup, name: 'Play-off for third place')
+  final = Round.create!(tournament: world_cup, name: 'Final')
 
   puts 'Creating games'
   puts '1st round...'
@@ -114,4 +120,30 @@ task create_world_cup_2018: :environment do
   Game.create!(round: third_round, host: japan, visitor: poland, allows_tie: true, date: DateTime.parse('2018-06-28 14:00:00'), place: 'Volgogrado Arena')
   Game.create!(round: third_round, host: england, visitor: belgium, allows_tie: true, date: DateTime.parse('2018-06-28 18:00:00'), place: 'Kaliningrad Stadium')
   Game.create!(round: third_round, host: panama, visitor: tunisia, allows_tie: true, date: DateTime.parse('2018-06-28 18:00:00'), place: 'Mordovia Arena')
+
+  puts 'Round of 16'
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-06-30 14:00:00'), place: 'Kazan Arena')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-06-30 18:00:00'), place: 'Fisht Olympic Stadium')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-01 14:00:00'), place: 'Olimpiyskiy Stadion Luzhniki')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-01 18:00:00'), place: 'Níjni Novgorod Stadium')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-02 14:00:00'), place: 'Samara Stadium')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-02 18:00:00'), place: 'Rostov Arena')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-03 14:00:00'), place: 'Krestovsky Stadium')
+  Game.create!(round: round_of_16, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-03 18:00:00'), place: 'Otkrytie Arena')
+
+  puts 'Quarter finals'
+  Game.create!(round: quarter_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-06 14:00:00'), place: 'Níjni Novgorod Stadium')
+  Game.create!(round: quarter_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-06 18:00:00'), place: 'Kazan Arena')
+  Game.create!(round: quarter_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-07 14:00:00'), place: 'Samara Stadium')
+  Game.create!(round: quarter_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-07 18:00:00'), place: 'Fisht Olympic Stadium')
+
+  puts 'Semi finals'
+  Game.create!(round: semi_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-10 18:00:00'), place: 'Krestovsky Stadium')
+  Game.create!(round: semi_finals, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-11 18:00:00'), place: 'Olimpiyskiy Stadion Luzhniki')
+
+  puts 'play_off_third_place'
+  Game.create!(round: play_off_third_place, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-14 14:00:00'), place: 'Krestovsky Stadium')
+
+  puts 'final'
+  Game.create!(round: final, host: nil, visitor: nil, allows_tie: false, date: DateTime.parse('2018-07-15 15:00:00'), place: 'Olimpiyskiy Stadion Luzhniki')
 end
