@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Make your bet!</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'home', media: 'all' %>
+    <%= javascript_include_tag 'home' %>
+    <link href='https://fonts.googleapis.com/css?family=Economica:700,400italic' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <div class="home-container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

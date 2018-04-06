@@ -14,11 +14,16 @@
   }
 }
 
-.navbar-color {
-  background-color: $primary-color;
-}
-
 .logout-button, .user-name {
   float: right;
   margin-right: 10px;
+
+  a {
+    color: #000;
+  }
+}
+
+.nav-wrapper {
+  background: transparent url(https://tympanus.net/Development/ParallaxContentSlider/images/waves.gif) repeat 0% 0%;
+  color: #000;
 }
