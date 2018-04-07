@@ -10,7 +10,14 @@
 		<p>How good are you to predict the outcome of soccer games? Check your numerology guru and the horoscope for your star sign, you will need all the help you can get.</p>
 
     <% if user_signed_in? %>
-      <%= link_to('My guesses', games_tournament_path(@world_cup), class: 'da-link') %>
+      <% is_admin = current_user.tournament_admin?(@world_cup) %>
+      <% link_text = 'My guesses' %>
+
+      <% if is_admin %>
+        <% link_text = 'Admin' %>
+      <% end %>
+
+      <%= link_to(link_text, games_tournament_path(@world_cup), class: 'da-link') %>
     <% else %>
       <%= link_to('Sign up', new_user_registration_path, class: 'da-link') %>
 
