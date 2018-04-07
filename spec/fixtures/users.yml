@@ -1,6 +1,12 @@
 john_doe:
   name: 'John Doe'
   email: 'john.doe@youse.com.br'
+  confirmed_at: <%= Time.current %>
+jane_roe:
+  name: 'Jane Roe'
+  email: 'jane.roe@youse.com.br'
+  confirmed_at: <%= Time.current %>
 outsider:
   name: 'Edgard Allan Poe'
   email: 'edgard.allan.poe@hotmail.com'
+  confirmed_at: <%= Time.current %>

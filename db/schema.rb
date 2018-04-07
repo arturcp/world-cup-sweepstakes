@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403125415) do
+ActiveRecord::Schema.define(version: 20180407212136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20180403125415) do
     t.datetime "date"
     t.string "place", default: ""
     t.bigint "round_id"
+    t.integer "host_score"
+    t.integer "visitor_score"
     t.index ["host_id"], name: "index_games_on_host_id"
     t.index ["round_id"], name: "index_games_on_round_id"
     t.index ["visitor_id"], name: "index_games_on_visitor_id"
@@ -60,6 +62,15 @@ ActiveRecord::Schema.define(version: 20180403125415) do
     t.string "logo"
     t.string "slug"
     t.index ["user_id"], name: "index_tournaments_on_user_id"
+  end
+
+  create_table "user_guesses", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "user_id"
+    t.integer "host_score", default: 0
+    t.integer "visitor_score", default: 0
+    t.index ["game_id"], name: "index_user_guesses_on_game_id"
+    t.index ["user_id"], name: "index_user_guesses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,4 +100,6 @@ ActiveRecord::Schema.define(version: 20180403125415) do
   add_foreign_key "games", "teams", column: "visitor_id"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "teams", "tournaments"
+  add_foreign_key "user_guesses", "games"
+  add_foreign_key "user_guesses", "users"
 end

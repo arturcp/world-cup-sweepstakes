@@ -6,6 +6,8 @@ class Game < ApplicationRecord
   belongs_to :host, class_name: 'Team', optional: true
   belongs_to :visitor, class_name: 'Team', optional: true
 
+  has_many :user_guesses, dependent: :destroy
+
   def host
     super || Team.default
   end

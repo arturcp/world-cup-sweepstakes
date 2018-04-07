@@ -3,3 +3,4 @@ braxcol:
   visitor: colombia
   allows_tie: true
   date: <%= Time.current %>
+  round: first_round

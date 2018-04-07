@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :tournaments, dependent: :destroy
+  has_many :user_guesses, dependent: :destroy
 
   APPROVED_DOMAINS = ['youse.com.br']
 
