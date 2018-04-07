@@ -6,4 +6,14 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :tournaments,  dependent: :destroy
+
+  APPROVED_DOMAINS = ['youse.com.br']
+
+  validates :email, presence: true, if: :domain_check
+
+  def domain_check
+    unless APPROVED_DOMAINS.any? { |word| email.end_with?(word)}
+      errors.add(:email, "is not from a valid domain")
+    end
+  end
 end
