@@ -1,7 +1,7 @@
 <header id="header" class="page-topbar <%= 'admin-header' if current_user.id == @tournament.user_id %>">
   <div class="navbar-fixed">
     <nav class="navbar-color">
-      <div class="nav-wrapper">
+      <div class="nav-wrapper <%= 'user' unless current_user == @tournament.user %>">
         <%= link_to root_path do %>
           <div class="left">
             <%= image_tag @tournament.logo, class: 'tournament-logo' %>
