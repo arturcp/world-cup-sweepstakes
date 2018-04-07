@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  has_many :tournaments,  dependent: :destroy
+  has_many :tournaments, dependent: :destroy
 
   APPROVED_DOMAINS = ['youse.com.br']
 
@@ -15,5 +15,9 @@ class User < ApplicationRecord
     unless APPROVED_DOMAINS.any? { |word| email.end_with?(word)}
       errors.add(:email, "is not from a valid domain")
     end
+  end
+
+  def tournament_admin?(tournament)
+    id.eql?(tournament.user_id)
   end
 end

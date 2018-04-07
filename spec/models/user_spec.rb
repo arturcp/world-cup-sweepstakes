@@ -20,4 +20,24 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#tournament_admin?' do
+    let(:tournament) { tournaments(:world_cup) }
+
+    context 'when user is the administrator of the tournament' do
+      let(:user) { users(:john_doe) }
+
+      it 'returns true' do
+        expect(user.tournament_admin?(tournament)).to be_truthy
+      end
+    end
+
+    context 'when user is not the administrator of the tournament' do
+      let(:user) { users(:outsider) }
+
+      it 'returns false' do
+        expect(user.tournament_admin?(tournament)).to be_falsy
+      end
+    end
+  end
 end
