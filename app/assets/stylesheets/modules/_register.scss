@@ -1,8 +1,4 @@
 #error_explanation {
-  h2 {
-    font-size: 15px;
-  }
-
   li {
     color: #a02424;
     background-color: #eee;
@@ -12,4 +8,8 @@
     border: 1px solid #a02424;
     margin-bottom: 10px;
   }
+}
+
+h2 {
+  font-size: 15px;
 }
