@@ -2,16 +2,18 @@
   <div class="navbar-fixed">
     <nav class="navbar-color">
       <div class="nav-wrapper">
-        <div class="left">
-          <%= image_tag @tournament.logo, class: 'tournament-logo' %>
-        </div>
-        <ul class="left">
-          <li class="main-logo">
-            <h3 class="logo-wrapper">
-              <%= @tournament.name %>
-            </h3>
-          </li>
-        </ul>
+        <%= link_to root_path do %>
+          <div class="left">
+            <%= image_tag @tournament.logo, class: 'tournament-logo' %>
+          </div>
+          <ul class="left">
+            <li class="main-logo">
+              <h3 class="logo-wrapper">
+                <%= @tournament.name %>
+              </h3>
+            </li>
+          </ul>
+        <% end %>
 
         <% if user_signed_in? %>
           <div class="logout-button">
