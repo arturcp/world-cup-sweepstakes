@@ -13,4 +13,11 @@
 //= require jquery2
 //= require rails-ujs
 //= require materialize
-//= require_tree ./home
+//= require page
+//= require almond
+
+//= require_tree .
+
+$(document).on('ready page:load', function() {
+  page.dispatch();
+});

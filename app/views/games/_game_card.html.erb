@@ -3,7 +3,7 @@
     <div class="col s5 right-align host-name">
       <span class='team-name'><%= game.host.name %></span>
       <img class="flag" src="<%= game.host.flag %>">
-      <%= number_field_tag 'score', {}, class: 'right-align' %>
+      <%= number_field_tag 'score', nil, class: 'right-align' %>
     </div>
     <div class="col s1 versus">X</div>
     <div class="col s5 left-align">
