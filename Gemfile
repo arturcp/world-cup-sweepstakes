@@ -16,6 +16,7 @@ gem 'puma', '~> 3.7'
 gem 'pg'
 gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
+gem 'select2-rails'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do

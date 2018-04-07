@@ -13,6 +13,7 @@
 //= require jquery2
 //= require rails-ujs
 //= require materialize
+//= require select2
 //= require page
 //= require almond
 

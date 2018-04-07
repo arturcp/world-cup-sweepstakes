@@ -1,0 +1,7 @@
+<span class='team-name <%= 'unconfirmed-team' unless team_defined %>'>
+  <%= team.name %>
+</span>
+
+<img class="flag" src="<%= team.flag %>" data-for="<%= team.name %>"/>
+
+<%= number_field_tag 'score', nil, class: "#{alignment}-align" %>

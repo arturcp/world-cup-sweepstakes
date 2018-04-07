@@ -1,3 +1,7 @@
 brazil:
   name: 'Brazil'
   flag: 'http://cdn.fake.com/pt-br.jpg'
+
+colombia:
+  name: 'Colombia'
+  flag: 'http://cdn.fake.com/col.jpg'

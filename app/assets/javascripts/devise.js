@@ -17,3 +17,7 @@
 //= require almond
 
 //= require_tree .
+
+$(document).on('ready page:load', function() {
+  page.dispatch();
+});

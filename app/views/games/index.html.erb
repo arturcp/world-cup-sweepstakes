@@ -21,3 +21,7 @@
     </div>
   <% end %>
 </section>
+
+<section id="teams-template" class="hide">
+  <%= select_tag :teams, options_for_select(teams_for_select), class: 'browser-default', prompt: 'Select team' %>
+</section>
