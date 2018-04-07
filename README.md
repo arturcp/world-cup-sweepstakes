@@ -1,24 +1,25 @@
-# README
+# World Cup Sweepstakes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Do you want to bet with your friends to find out who knows more about soccer?
+This website is the right tool for you. Create a tournament and try to guess
+the games' results before they happen. 
 
-Things you may want to cover:
+# Set up
 
-* Ruby version
+To prepare the database:
 
-* System dependencies
+```
+  bin/rake db:create db:migrate
+```
 
-* Configuration
+To populate database with the 2018 world cup data:
 
-* Database creation
+```
+  bin/rake create_world_cup_2018
+```
 
-* Database initialization
+If you need users to test the website, you can run:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+  bin/rake db:seed
+```
