@@ -1,4 +1,4 @@
-<% admin_user = current_user.id.tournament_admin?(@tournament) %>
+<% admin_user = current_user.tournament_admin?(@tournament) %>
 <% klass = "team-name #{'unconfirmed-team' unless team_defined || admin_user}" %>
 <%= content_tag :span, class: klass do %>
   <%= team.name %>
