@@ -43,17 +43,30 @@
   input[type=number] {
     -moz-appearance:textfield;
   }
-}
 
-.unconfirmed-team {
-  cursor: pointer;
-}
+  .unconfirmed-team {
+    cursor: pointer;
+  }
 
-.browser-default {
-  height: 22px;
-}
+  .browser-default {
+    height: 22px;
+  }
 
-.flag-placeholder {
-  width: 25px;
-  height: 25px;
+  .flag-placeholder {
+    width: 25px;
+    height: 25px;
+  }
+
+  .card-panel.disabled {
+    background-color: #f3f2f2;
+    color: #ccc;
+
+    .flag {
+      opacity: 0.3;
+    }
+
+    div .col.s1.versus {
+      color: #ccc;
+    }
+  }
 }

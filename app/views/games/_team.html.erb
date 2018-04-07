@@ -1,7 +1,11 @@
-<span class='team-name <%= 'unconfirmed-team' unless team_defined %>'>
+<% admin_user = current_user.id != @tournament.user_id %>
+<% klass = "team-name #{'unconfirmed-team' unless team_defined || admin_user}" %>
+<%= content_tag :span, class: klass do %>
   <%= team.name %>
-</span>
+<% end %>
 
-<img class="flag" src="<%= team.flag %>" data-for="<%= team.name %>"/>
+<%= image_tag team.flag, class: 'flag', data: { for: team.name } %>
 
-<%= number_field_tag 'score', nil, class: "#{alignment}-align" %>
+<% guess_unavailable = game.passed? || (!team_defined && admin_user) %>
+<%= number_field_tag 'score', nil, class: "#{alignment}-align",
+  disabled: guess_unavailable %>

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
+  include ActiveSupport::Testing::TimeHelpers
+
   let(:team) { teams(:brazil) }
 
   describe '#host' do
@@ -55,6 +57,42 @@ RSpec.describe Game, type: :model do
 
       it 'uses the visitor\'s flag' do
         expect(game.visitor.flag).to eq(default_team.flag)
+      end
+    end
+  end
+
+  describe '#passed?' do
+    let(:game) { games(:braxcol) }
+
+    context 'when game will happen more than 1 hour from now' do
+      it 'is not passed' do
+        travel_to game.date - 10.days do
+          expect(game).not_to be_passed
+        end
+      end
+    end
+
+    context 'when game will happen one hour from now' do
+      it 'is passed' do
+        travel_to game.date - 1.hour do
+          expect(game).to be_passed
+        end
+      end
+    end
+
+    context 'when game is happening' do
+      it 'is passed' do
+        travel_to game.date do
+          expect(game).to be_passed
+        end
+      end
+    end
+
+    context 'when game already happened' do
+      it 'is passed' do
+        travel_to game.date + 10.days do
+          expect(game).to be_passed
+        end
       end
     end
   end

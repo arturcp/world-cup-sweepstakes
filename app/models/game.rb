@@ -13,4 +13,8 @@ class Game < ApplicationRecord
   def visitor
     super || Team.default
   end
+
+  def passed?
+    date - 1.hour <= Time.current
+  end
 end

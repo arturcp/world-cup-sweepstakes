@@ -1,0 +1,5 @@
+braxcol:
+  host: brazil
+  visitor: colombia
+  allows_tie: true
+  date: <%= Time.current %>
