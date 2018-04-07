@@ -24,6 +24,9 @@
 }
 
 .nav-wrapper {
-  background: transparent url(https://tympanus.net/Development/ParallaxContentSlider/images/waves.gif) repeat 0% 0%;
-  color: #000;
+  background: transparent image_url('waves.gif') repeat 0% 0%;
+
+  a {
+    color: #000;
+  }
 }
