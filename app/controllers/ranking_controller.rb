@@ -21,10 +21,6 @@ class RankingController < ApplicationController
     @tournament ||= Tournament.find_by(slug: params[:tournament_name])
   end
 
-  def permitted_params
-    params.permit(:game_id, :host_score, :visitor_score)
-  end
-
   def game
     @game ||= Game.find(params[:game_id])
   end

@@ -1,11 +1,11 @@
 <div class="card card-panel <%= 'disabled' if game.passed? %> <%= 'ranking-points-distributed' if game.checked? %>">
-  <div class="card-content">
-    <div class="col s5 right-align host-name">
+  <div class="card-content" data-game-id="<%= game.id %>">
+    <div class="col s5 right-align host-name" data-type="host">
       <%= render 'team', team: game.host, team_defined: game.host.id.present?,
         alignment: 'right', game: game, score: game.host_score %>
     </div>
     <div class="col s2 versus center-align">X</div>
-    <div class="col s5 left-align">
+    <div class="col s5 left-align" data-type="visitor">
       <%= render 'team', team: game.visitor, team_defined: game.visitor.id.present?,
         alignment: 'left', game: game, score: game.visitor_score %>
     </div>

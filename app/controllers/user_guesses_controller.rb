@@ -19,7 +19,7 @@ class UserGuessesController < ApplicationController
   private
 
   def tournament
-    @tournament ||= Tournament.find_by(slug: params[:tournament_name])
+    @tournament ||= Tournament.friendly.find(params[:tournament_name])
   end
 
   def permitted_params
@@ -27,14 +27,14 @@ class UserGuessesController < ApplicationController
   end
 
   def game
-    @game ||= Game.find(params[:game_id])
+    @game ||= Game.find(permitted_params[:game_id])
   end
 
   def host_score
-    params[:host_score].to_i
+    permitted_params[:host_score].to_i
   end
 
   def visitor_score
-    params[:visitor_score].to_i
+    permitted_params[:visitor_score].to_i
   end
 end

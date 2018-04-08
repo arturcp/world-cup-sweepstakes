@@ -2,8 +2,9 @@
 
 <%
   section_data = {
-    update_url: user_guesses_tournament_path(@tournament),
-    ranking_url: ranking_tournament_path(@tournament)
+    update_score_url: user_guesses_tournament_path(@tournament),
+    ranking_url: ranking_tournament_path(@tournament),
+    update_game_url: games_tournament_path(@tournament)
   }
 %>
 <%= content_tag :section, nil, id: 'games-container', data: section_data do %>
