@@ -54,4 +54,12 @@ RSpec.describe UserGuess, type: :model do
       end
     end
   end
+
+  describe '#to_s' do
+    let(:guess) { user_guesses(:john_first_guess) }
+
+    it 'formats the result in a string' do
+      expect(guess.to_s).to eq('3 x 1')
+    end
+  end
 end

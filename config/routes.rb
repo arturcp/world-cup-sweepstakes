@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :tournament, only: :index, param: :tournament_name do
     get :games, on: :member, to: 'games#index'
     post :user_guesses, on: :member, to: 'user_guesses#create'
+    post :ranking, on: :member, to: 'ranking#create'
   end
 
   root to: 'home#index'

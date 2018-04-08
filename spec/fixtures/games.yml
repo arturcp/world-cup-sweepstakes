@@ -4,3 +4,15 @@ braxcol:
   allows_tie: true
   date: <%= Time.current %>
   round: first_round
+  host_score: 2
+  visitor_score: 1
+  status: 0
+rusxmex:
+  host: russia
+  visitor: mexico
+  allows_tie: true
+  date: <%= Time.current %>
+  round: first_round
+  host_score: 3
+  visitor_score: 2
+  status: 0

@@ -5,3 +5,11 @@ brazil:
 colombia:
   name: 'Colombia'
   flag: 'http://cdn.fake.com/col.jpg'
+
+russia:
+  name: 'Russia'
+  flag: 'http://cdn.fake.com/rus.jpg'
+
+mexico:
+  name: 'Mexico'
+  flag: 'http://cdn.fake.com/mex.jpg'

@@ -8,6 +8,8 @@ class Game < ApplicationRecord
 
   has_many :user_guesses, dependent: :destroy
 
+  delegate :tournament, to: :round
+
   enum status: {
     pending: 0,
     checked: 1

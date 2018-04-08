@@ -14,23 +14,35 @@
   }
 }
 
-.logout-button, .user-name {
+.logout-button,
+.user-name {
   float: right;
   margin-right: 10px;
+  color: #000;
 
   a {
     color: #000;
   }
 }
 
-.admin-header .logout-button a {
-  color: #fff;
+.admin-header {
+  .logout-button a {
+    color: #fff;
+  }
+
+  .nav-wrapper.user a {
+    color: #fff;
+  }
+
+  .user-name {
+    color: #fff;
+  }
 }
 
 .nav-wrapper.user {
   background: transparent image_url('waves.gif') repeat 0% 0%;
 
   a {
-    color: #fff;
+    color: #000;
   }
 }

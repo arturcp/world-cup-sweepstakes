@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
-class UserGuessesController < ApplicationController
+class RankingController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
   def create
     if current_user.tournament_admin?(tournament)
-      game.update!(host_score: host_score, visitor_score: visitor_score)
-    else
-      UserGuess.save_guess(user: current_user, game: game,
-        host_score: host_score, visitor_score: visitor_score)
+      RankingCalculator.new(game).apply_rules
     end
 
     head :ok
   end
+
+  private
 
   private
 
@@ -28,13 +27,5 @@ class UserGuessesController < ApplicationController
 
   def game
     @game ||= Game.find(params[:game_id])
-  end
-
-  def host_score
-    params[:host_score].to_i
-  end
-
-  def visitor_score
-    params[:visitor_score].to_i
   end
 end

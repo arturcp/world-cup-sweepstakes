@@ -1,0 +1,11 @@
+john_first_guess:
+  user: john_doe
+  game: braxcol
+  host_score: 3
+  visitor_score: 1
+
+john_second_guess:
+  user: john_doe
+  game: rusxmex
+  host_score: 2
+  visitor_score: 2

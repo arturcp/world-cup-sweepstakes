@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :passowrd])
   end
+
+  def record_not_found
+    head :not_found
+  end
 end

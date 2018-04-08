@@ -1,6 +1,12 @@
 <%= render 'layouts/header' %>
 
-<section id='games-container' data-update-url="<%= user_guesses_tournament_path(@tournament) %>">
+<%
+  section_data = {
+    update_url: user_guesses_tournament_path(@tournament),
+    ranking_url: ranking_tournament_path(@tournament)
+  }
+%>
+<%= content_tag :section, nil, id: 'games-container', data: section_data do %>
   <% @tournament.rounds.each do |round| %>
     <div class="row">
       <div class="col s4 offset-s4 center-align">
@@ -20,7 +26,7 @@
       </div>
     </div>
   <% end %>
-</section>
+<% end %>
 
 <section id="teams-template" class="hide">
   <%= select_tag :teams, options_for_select(teams_for_select), class: 'browser-default', prompt: 'Select team' %>

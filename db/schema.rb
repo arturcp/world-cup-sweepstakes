@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180408124111) do
+ActiveRecord::Schema.define(version: 20180408152839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(version: 20180408124111) do
     t.index ["host_id"], name: "index_games_on_host_id"
     t.index ["round_id"], name: "index_games_on_round_id"
     t.index ["visitor_id"], name: "index_games_on_visitor_id"
+  end
+
+  create_table "ranking_logs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tournament_id"
+    t.bigint "game_id"
+    t.integer "points"
+    t.string "guess"
+    t.integer "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_ranking_logs_on_game_id"
+    t.index ["tournament_id"], name: "index_ranking_logs_on_tournament_id"
+    t.index ["user_id"], name: "index_ranking_logs_on_user_id"
   end
 
   create_table "rounds", force: :cascade do |t|
@@ -99,6 +113,9 @@ ActiveRecord::Schema.define(version: 20180408124111) do
   add_foreign_key "games", "rounds"
   add_foreign_key "games", "teams", column: "host_id"
   add_foreign_key "games", "teams", column: "visitor_id"
+  add_foreign_key "ranking_logs", "games"
+  add_foreign_key "ranking_logs", "tournaments"
+  add_foreign_key "ranking_logs", "users"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "teams", "tournaments"
   add_foreign_key "user_guesses", "games"
