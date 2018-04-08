@@ -15,7 +15,7 @@
   </div>
 
   <% is_admin = current_user.tournament_admin?(@tournament) %>
-  <% if is_admin && game.pending? %>
+  <% if is_admin %>
     <div class="card-action center-align ranking-button-container">
       <a class="waves-effect waves-light btn-small green ranking-button">
         Distribute points

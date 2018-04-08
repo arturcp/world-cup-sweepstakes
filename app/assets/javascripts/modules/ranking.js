@@ -32,7 +32,7 @@ define('ranking', function(Events) {
   fn._scoreChanged = function(payload) {
     var container = payload.container;
 
-    if (payload.hostScore !== '' && payload.visitorScore !== '') {
+    if (payload.hostScore !== '' && payload.visitorScore !== '' && !container.hasClass('distributed')) {
       container.find('.ranking-button').removeClass('disabled');
     } else {
       container.find('.ranking-button').addClass('disabled');
