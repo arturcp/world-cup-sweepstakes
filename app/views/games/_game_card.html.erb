@@ -1,4 +1,4 @@
-<div class="card card-panel <%= 'disabled' if game.passed? %> <%= 'distributed' if game.checked? %>">
+<div class="card card-panel <%= 'disabled' if game.passed? %> <%= 'ranking-points-distributed' if game.checked? %>">
   <div class="card-content">
     <div class="col s5 right-align host-name">
       <%= render 'team', team: game.host, team_defined: game.host.id.present?,

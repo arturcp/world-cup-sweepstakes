@@ -18,7 +18,10 @@ define('ranking', function(Events) {
           hostInput = $(inputs[0]),
           visitorInput = $(inputs[1]);
 
-      if (hostInput.val() === '' || visitorInput.val() === '' || container.hasClass('distributed')) {
+      if (container.hasClass('ranking-points-distributed')) {
+        button.addClass('invisible');
+      }
+      else if (hostInput.val() === '' || visitorInput.val() === '') {
         button.addClass('disabled');
       }
     });
@@ -30,19 +33,26 @@ define('ranking', function(Events) {
   };
 
   fn._scoreChanged = function(payload) {
-    var container = payload.container;
+    var container = payload.container,
+        button = container.find('.ranking-button');
 
-    if (payload.hostScore !== '' && payload.visitorScore !== '' && !container.hasClass('distributed')) {
-      container.find('.ranking-button').removeClass('disabled');
+    if (container.hasClass('ranking-points-distributed')) {
+      button.addClass('invisible');
+    }
+    else if (payload.hostScore !== '' && payload.visitorScore !== '') {
+      button.removeClass('disabled');
     } else {
-      container.find('.ranking-button').addClass('disabled');
+      button.addClass('disabled');
     }
   };
 
   fn._scoreRemoved = function(payload) {
-    var container = payload.container;
+    var container = payload.container,
+        button = container.find('.ranking-button');
 
-    container.find('.ranking-button').addClass('disabled');
+    if (!container.hasClass('ranking-points-distributed')) {
+      button.addClass('disabled');
+    }
   };
 
   return Ranking;
