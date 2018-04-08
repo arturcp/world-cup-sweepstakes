@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407212136) do
+ActiveRecord::Schema.define(version: 20180408124111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20180407212136) do
     t.bigint "round_id"
     t.integer "host_score"
     t.integer "visitor_score"
+    t.integer "status", default: 0
     t.index ["host_id"], name: "index_games_on_host_id"
     t.index ["round_id"], name: "index_games_on_round_id"
     t.index ["visitor_id"], name: "index_games_on_visitor_id"

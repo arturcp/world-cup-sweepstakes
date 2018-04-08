@@ -1,4 +1,4 @@
-define('score-changes', function() {
+define('score-changes', function(Events) {
   function ScoreChanges() {
     this.element = $('.input-for-score:enabled');
     this.url = $('#games-container').attr('data-update-url');
@@ -13,12 +13,18 @@ define('score-changes', function() {
   };
 
   fn._changeScore = function(event) {
-    var key = event.charCode || event.keyCode || 0;
+    var key = event.charCode || event.keyCode || 0,
+        element = $(event.currentTarget);
+
+    if (element.val() === '') {
+      EventDispatcher.trigger('scoreRemoved', {
+        container: element.parents('.card-panel')
+      });
+    }
 
     //it will be triggered only with numbers
     if (key >= 48 && key <= 57) {
-      var element = $(event.currentTarget),
-          gameId = parseInt(element.attr('data-game-id')),
+      var gameId = parseInt(element.attr('data-game-id')),
           card = element.parents('.card-content'),
           inputs = card.find('.input-for-score');
 
@@ -32,7 +38,7 @@ define('score-changes', function() {
         self = this;
 
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: this.url,
       data: {
         game_id: gameId,
@@ -40,7 +46,7 @@ define('score-changes', function() {
         visitor_score: visitorScore
       },
       error: function (data) {
-        M.toast({ html: "Hum... something didn't work" });
+        M.toast({ html: 'Hum... something didn\'t work' });
       },
       success: function() {
         if (hostInput.val() !== '') {
@@ -50,6 +56,13 @@ define('score-changes', function() {
         if (visitorInput.val() !== '') {
           visitorInput.val(visitorScore);
         }
+
+        EventDispatcher.trigger('scoreChanged', {
+          gameId: gameId,
+          hostScore: hostInput.val(),
+          visitorScore: visitorInput.val(),
+          container: hostInput.parents('.card-panel')
+        });
       }
     });
   };

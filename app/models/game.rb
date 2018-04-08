@@ -8,6 +8,11 @@ class Game < ApplicationRecord
 
   has_many :user_guesses, dependent: :destroy
 
+  enum status: {
+    pending: 0,
+    checked: 1
+  }
+
   def host
     super || Team.default
   end

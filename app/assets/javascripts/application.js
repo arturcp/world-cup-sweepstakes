@@ -16,6 +16,7 @@
 //= require select2
 //= require page
 //= require almond
+//= require event-dispatcher
 
 //= require_tree .
 
