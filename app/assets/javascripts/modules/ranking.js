@@ -1,6 +1,8 @@
 define('ranking', function(Events) {
   function Ranking() {
-    if ($('.ranking-button-container').length > 0) {
+    this.buttons = $('.ranking-button');
+
+    if (this._hasRankingButtons()) {
       this._hideRankingButtons();
       this._bindEvents();
     }
@@ -8,10 +10,17 @@ define('ranking', function(Events) {
 
   var fn = Ranking.prototype;
 
-  fn._hideRankingButtons = function() {
-    var buttons = $('.ranking-button');
+  fn._bindEvents = function() {
+    EventDispatcher.on('scoreChanged', $.proxy(this._scoreChanged, this));
+    EventDispatcher.on('scoreRemoved', $.proxy(this._scoreRemoved, this));
+  };
 
-    $.each(buttons, function() {
+  fn._hasRankingButtons = function() {
+    return $('.ranking-button-container').length > 0;
+  };
+
+  fn._hideRankingButtons = function() {
+    $.each(this.buttons, function() {
       var button = $(this),
           container = button.parents('.card-panel'),
           inputs = container.find('.input-for-score'),
@@ -25,11 +34,6 @@ define('ranking', function(Events) {
         button.addClass('disabled');
       }
     });
-  };
-
-  fn._bindEvents = function() {
-    EventDispatcher.on('scoreChanged', $.proxy(this._scoreChanged, this));
-    EventDispatcher.on('scoreRemoved', $.proxy(this._scoreRemoved, this));
   };
 
   fn._scoreChanged = function(payload) {
