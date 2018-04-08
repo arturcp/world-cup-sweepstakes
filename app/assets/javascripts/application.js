@@ -17,6 +17,7 @@
 //= require page
 //= require almond
 //= require event-dispatcher
+//= require loading
 
 //= require_tree .
 

@@ -24,7 +24,7 @@
 //   EventDispatcher.once('an_event', handler)
 var EventDispatcher = {
   listeners: {},
-  on: function (event, callback) {
+  on: function(event, callback) {
     if(!Object.prototype.hasOwnProperty.call(this.listeners, event)) {
       this.listeners[event] = [];
     }
@@ -53,7 +53,7 @@ var EventDispatcher = {
       }
     }
   },
-  trigger: function (event) {
+  trigger: function(event) {
     if (Object.prototype.hasOwnProperty.call(this.listeners, event)) {
       var listeners = this.listeners[event];
       var args = Array.prototype.slice.call(arguments, 1);
