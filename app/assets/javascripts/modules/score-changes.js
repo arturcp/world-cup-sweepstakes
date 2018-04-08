@@ -13,12 +13,17 @@ define('score-changes', function() {
   };
 
   fn._changeScore = function(event) {
-    var element = $(event.currentTarget),
-        gameId = parseInt(element.attr('data-game-id')),
-        card = element.parents('.card-content'),
-        inputs = card.find('.input-for-score');
+    var key = event.charCode || event.keyCode || 0;
 
-    this._update(gameId, $(inputs[0]), $(inputs[1]));
+    //it will be triggered only with numbers
+    if (key >= 48 && key <= 57) {
+      var element = $(event.currentTarget),
+          gameId = parseInt(element.attr('data-game-id')),
+          card = element.parents('.card-content'),
+          inputs = card.find('.input-for-score');
+
+      this._update(gameId, $(inputs[0]), $(inputs[1]));
+    }
   };
 
   fn._update = function(gameId, hostInput, visitorInput) {
@@ -41,7 +46,7 @@ define('score-changes', function() {
         if (hostInput.val() !== '') {
           hostInput.val(hostScore);
         }
-        
+
         if (visitorInput.val() !== '') {
           visitorInput.val(visitorScore);
         }

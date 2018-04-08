@@ -7,6 +7,11 @@ class UserGuess < ApplicationRecord
   def self.save_guess(user:, game:, host_score:, visitor_score:)
     return if game.passed?
 
-    create!(user: user, game: game, host_score: host_score, visitor_score: visitor_score)
+    guess = find_or_initialize_by(user: user, game: game)
+    guess.host_score = host_score
+    guess.visitor_score = visitor_score
+    guess.save!
+
+    guess
   end
 end
