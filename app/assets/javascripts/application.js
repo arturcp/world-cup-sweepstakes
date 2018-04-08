@@ -18,7 +18,7 @@
 //= require almond
 //= require event-dispatcher
 //= require loading
-//= require jquery-confirm
+//= require jquery-confirm2
 
 //= require_tree .
 
