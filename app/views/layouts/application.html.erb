@@ -12,6 +12,8 @@
   <body data-page='<%= pagejs %>'>
     <%= yield %>
 
+    <%= render 'layouts/overlay' %>
+
     <% if flash[:alert] || flash[:notice] %>
       <script>
         $(document).ready(function(){

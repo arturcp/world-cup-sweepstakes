@@ -7,5 +7,13 @@
 <%= image_tag team.flag, class: 'flag', data: { for: team.name } %>
 
 <% guess_unavailable = game.passed? || (!team_defined && is_admin) %>
-<%= number_field_tag 'score', nil, class: "#{alignment}-align",
-  disabled: guess_unavailable %>
+<%=
+  text_field_tag nil, nil,
+    class: "#{alignment}-align input-for-score",
+    disabled: guess_unavailable,
+    value: score,
+    maxlength: 2,
+    data: {
+      game_id: game.id
+    }
+%>

@@ -1,6 +1,6 @@
 <%= render 'layouts/header' %>
 
-<section id='games-container'>
+<section id='games-container' data-update-url="<%= user_guesses_tournament_path(@tournament) %>">
   <% @tournament.rounds.each do |round| %>
     <div class="row">
       <div class="col s4 offset-s4 center-align">
@@ -11,7 +11,7 @@
       <div class="col s10 offset-s1">
         <div class="row">
           <% klass = 'offset-l3' if round.games.count == 1 %>
-          <% round.games.each_with_index do |game, index| %>
+          <% round.games.order(:date).each_with_index do |game, index| %>
             <div class="col m12 l6 <%= klass %>">
               <%= render 'game_card', game: game %>
             </div>

@@ -31,11 +31,11 @@ class UserGuessesController < ApplicationController
   end
 
   def host_score
-    params[:host_score]
+    params[:host_score].to_i
   end
 
   def visitor_score
-    params[:visitor_score]
+    params[:visitor_score].to_i
   end
 
   def record_not_found
