@@ -25,3 +25,8 @@ braxrus:
   host_score: 3
   visitor_score: 0
   status: 0
+unconfirmed:
+  allows_tie: true
+  date: <%= Time.current %>
+  round: first_round
+  status: 0

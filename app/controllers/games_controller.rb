@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class GamesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token, only: :update
 
   def index
     @tournament = Tournament.friendly.find(params[:tournament_name])
@@ -30,6 +32,8 @@ class GamesController < ApplicationController
   end
 
   def valid_for_update?
-    current_user.tournament_admin?(tournament) && game.host_id.nil? && game.visitor_id.nil?
+    current_user.tournament_admin?(tournament) && game.host_id.nil? &&
+      game.visitor_id.nil? && permitted_params[:host_id].present? &&
+      permitted_params[:visitor_id].present?
   end
 end
