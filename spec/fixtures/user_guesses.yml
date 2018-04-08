@@ -9,3 +9,9 @@ john_second_guess:
   game: rusxmex
   host_score: 2
   visitor_score: 2
+
+john_third_guess:
+  user: john_doe
+  game: braxrus
+  host_score: 3
+  visitor_score: 0

@@ -26,4 +26,8 @@ class Game < ApplicationRecord
   def passed?
     date - 1.hour <= Time.current
   end
+
+  def score
+    "#{host_score} x #{visitor_score}"
+  end
 end

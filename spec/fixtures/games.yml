@@ -16,3 +16,12 @@ rusxmex:
   host_score: 3
   visitor_score: 2
   status: 0
+braxrus:
+  host: brazil
+  visitor: russia
+  allows_tie: true
+  date: <%= Time.current %>
+  round: first_round
+  host_score: 3
+  visitor_score: 0
+  status: 0

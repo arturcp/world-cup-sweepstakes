@@ -34,6 +34,7 @@ RSpec.describe RankingCalculator, type: :model do
     context 'when game is valid' do
       let(:game) { games(:braxcol) }
       let(:second_game) { games(:rusxmex) }
+      let(:third_game) { games(:braxrus) }
 
       context 'but the game has no guesses' do
         it 'returns true' do
@@ -59,19 +60,33 @@ RSpec.describe RankingCalculator, type: :model do
         end
 
         it 'logs the results in the ranking_logs table' do
-          guess = user_guesses(:john_first_guess)
+          expect(RankingLog).to receive(:create!)
+            .with(
+              tournament: game.tournament,
+              user: user,
+              game: third_game,
+              guess: '3 x 0',
+              points: 1,
+              reason: :winner
+            ).once
 
           expect(RankingLog).to receive(:create!)
             .with(
               tournament: game.tournament,
               user: user,
-              game: game,
-              guess: '3 x 1',
-              points: 1,
-              reason: :winner
+              game: third_game,
+              guess: '3 x 0',
+              points: 3,
+              reason: :score
             ).once
 
-          described_class.new(game).apply_rules
+          described_class.new(third_game).apply_rules
+        end
+
+        it 'creates a new log entry' do
+          expect {
+            described_class.new(game).apply_rules
+          }.to change(RankingLog, :count).by(1)
         end
 
         it 'does not log wrong guesses' do

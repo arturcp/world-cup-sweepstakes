@@ -15,7 +15,7 @@ class UserGuess < ApplicationRecord
     guess
   end
 
-  def to_s
+  def score
     "#{host_score} x #{visitor_score}"
   end
 end

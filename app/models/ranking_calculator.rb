@@ -3,7 +3,10 @@
 class RankingCalculator
   attr_reader :game
 
-  RULES = [Rules::WinnerRule].freeze
+  RULES = [
+    Rules::WinnerRule,
+    Rules::ScoreRule
+  ].freeze
 
   def initialize(game)
     @game = game
@@ -41,7 +44,7 @@ class RankingCalculator
       tournament: tournament,
       user: user,
       game: game,
-      guess: guess.to_s,
+      guess: guess.score,
       points: points,
       reason: reason
     )

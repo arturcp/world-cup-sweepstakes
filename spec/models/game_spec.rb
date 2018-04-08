@@ -96,4 +96,12 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#score' do
+    let(:game) { games(:braxcol) }
+
+    it 'formats the result in a string' do
+      expect(game.score).to eq('2 x 1')
+    end
+  end
 end

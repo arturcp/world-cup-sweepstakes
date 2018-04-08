@@ -111,7 +111,6 @@ RSpec.describe UserGuessesController, type: :request do
     end
 
     context 'when user is not logged' do
-
       it 'returns unauthorized http status' do
         post user_guesses_tournament_path(tournament), params: {
           game_id: game.id, host_score: 1, visitor_score: 2, format: :json }
