@@ -2,8 +2,12 @@
 
 class RankingController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!, only: :create
+  skip_before_action :verify_authenticity_token, only: :create
+
+  def index
+    @tournament = Tournament.find_by(slug: params[:tournament_name])
+  end
 
   def create
     if current_user.tournament_admin?(tournament)
@@ -12,8 +16,6 @@ class RankingController < ApplicationController
 
     head :ok
   end
-
-  private
 
   private
 

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     put :games, on: :member, to: 'games#update'
     post :user_guesses, on: :member, to: 'user_guesses#create'
     post :ranking, on: :member, to: 'ranking#create'
+    get :ranking, on: :member, to: 'ranking#index'
   end
 
   root to: 'home#index'
