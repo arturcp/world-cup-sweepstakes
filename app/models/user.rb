@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :tournaments, dependent: :destroy
   has_many :user_guesses, dependent: :destroy
+  has_many :ranking_logs
 
   APPROVED_DOMAINS = ['youse.com.br']
 

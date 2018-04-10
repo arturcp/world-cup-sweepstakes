@@ -1,0 +1,21 @@
+john_doe_1:
+  user: john_doe
+  tournament: world_cup
+  game: braxcol
+  points: 1
+  guess: '3 x 1'
+  reason: :winner
+jane_roe_1:
+  user: jane_roe
+  tournament: world_cup
+  game: braxcol
+  points: 1
+  guess: '2 x 1'
+  reason: :winner
+john_doe_2:
+  user: jane_roe
+  tournament: world_cup
+  game: braxcol
+  points: 3
+  guess: '2 x 1'
+  reason: :score

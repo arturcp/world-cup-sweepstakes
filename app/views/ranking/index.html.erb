@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <%= content_tag :section, nil, id: 'ranking-container' do %>
   <div class="row">
@@ -10,7 +10,15 @@
     <div class="col s12 l4 offset-l4 center-align">
       <div class="card">
         <div class="card-content">
-          <%= render 'ranking_table' %>
+          <% if @ranking.length > 0 %>
+            <%= render 'ranking_table', ranking: @ranking %>
+          <% else %>
+            There are no rankings for this tournament yet.
+          <% end %>
+
+          <%= link_to root_path, class: 'waves-effect waves-light btn-small button' do %>
+            <i class="material-icons left">home</i>Go back
+          <% end %>
         </div>
       </div>
     </div>

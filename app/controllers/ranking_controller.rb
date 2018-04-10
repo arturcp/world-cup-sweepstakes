@@ -7,6 +7,7 @@ class RankingController < ApplicationController
 
   def index
     @tournament = Tournament.find_by(slug: params[:tournament_name])
+    @ranking = Ranking.fetch(@tournament)
   end
 
   def create
