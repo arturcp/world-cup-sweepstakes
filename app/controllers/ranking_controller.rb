@@ -10,6 +10,14 @@ class RankingController < ApplicationController
     @ranking = Ranking.fetch(@tournament)
   end
 
+  def show
+    @log = RankingLog
+      .where(tournament: tournament, user_id: params[:user_id])
+      .order(:created_at)
+
+    render :show, layout: false
+  end
+
   def create
     if current_user.tournament_admin?(tournament)
       RankingCalculator.new(game).apply_rules

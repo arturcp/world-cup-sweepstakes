@@ -1,0 +1,30 @@
+<% if @log.count > 0 %>
+  <ul id="ranking-log">
+    <% @log.each do |log| %>
+      <li>
+        <%=
+          raw(
+            [
+              '<b>',
+              log.points,
+              '</b>',
+              'point'.pluralize(log.points),
+              'for guessing the',
+              "<span class='#{log.reason}'>",
+              log.reason,
+              '</span>',
+              'on',
+              log.game.title
+            ].join(' ')
+          )
+        %>
+        <div class="ranking-log-scores">
+          <p>Game score: <%= log.game.score %></p>
+          <p>User guess: <%= log.guess %></p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  Nothing to show for this user. Sorry :(
+<% end %>

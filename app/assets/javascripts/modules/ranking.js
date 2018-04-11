@@ -75,7 +75,7 @@ define('ranking', function(Events) {
       beforeSend: function() {
         Loading.show();
       },
-      error: function (data) {
+      error: function(data) {
         M.toast({ html: 'Hum... something didn\'t work as expected' });
         Loading.hide();
       },

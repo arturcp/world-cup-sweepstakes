@@ -20,7 +20,12 @@
         </td>
         <td><%= user.name %></td>
         <td><%= user.total_points %></td>
-        <td><i class="material-icons">info_outline</i></td>
+        <td>
+          <%= link_to 'javascript:;', class: 'show-log', data: {
+            ranking_url: ranking_log_tournament_path(@tournament, user.id) } do %>
+            <i class="material-icons">info_outline</i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

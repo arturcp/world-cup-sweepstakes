@@ -89,7 +89,7 @@ define('team-selection', function() {
         host_id: hostId,
         visitor_id: visitorId
       },
-      error: function (data) {
+      error: function(data) {
         M.toast({ html: 'Hum... something didn\'t work as expected' });
       },
       success: function() {

@@ -45,7 +45,7 @@ define('score-changes', function(Events) {
         host_score: hostScore,
         visitor_score: visitorScore
       },
-      error: function (data) {
+      error: function(data) {
         M.toast({ html: 'Hum... something didn\'t work as expected' });
       },
       success: function() {

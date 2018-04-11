@@ -11,4 +11,28 @@
     background-color: $admin-color;
     margin-top: 10px;
   }
+
+  .show-log {
+    cursor: pointer;
+  }
+}
+
+#ranking-log {
+  max-height: 300px;
+  overflow: scroll;
+
+  span.winner {
+    color: #152ede;
+  }
+
+  span.score {
+    color: #1fc51f;
+  }
+
+  .ranking-log-scores {
+    margin: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    font-size: 13px;
+  }
 }

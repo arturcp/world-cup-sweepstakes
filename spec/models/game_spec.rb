@@ -104,4 +104,32 @@ RSpec.describe Game, type: :model do
       expect(game.score).to eq('2 x 1')
     end
   end
+
+  describe '#title' do
+    context 'when game has host and visitor' do
+      let(:game) { games(:braxcol) }
+
+      it 'formats the name of the teams' do
+        expect(game.title).to eq('Brazil x Colombia')
+      end
+    end
+
+    context 'when game has only host' do
+      let(:team) { teams(:brazil) }
+      let(:game) { Game.new(host: team) }
+
+      it 'returns an empty string' do
+        expect(game.title).to be_empty
+      end
+    end
+
+    context 'when game has only visitor' do
+      let(:team) { teams(:brazil) }
+      let(:game) { Game.new(visitor: team) }
+
+      it 'returns an empty string' do
+        expect(game.title).to be_empty
+      end
+    end
+  end
 end

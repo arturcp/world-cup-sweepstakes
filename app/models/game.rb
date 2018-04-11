@@ -30,4 +30,10 @@ class Game < ApplicationRecord
   def score
     "#{host_score} x #{visitor_score}"
   end
+
+  def title
+    return '' unless host.id && visitor.id
+
+    "#{host.name} x #{visitor.name}"
+  end
 end

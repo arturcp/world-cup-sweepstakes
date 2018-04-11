@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     post :user_guesses, on: :member, to: 'user_guesses#create'
     post :ranking, on: :member, to: 'ranking#create'
     get :ranking, on: :member, to: 'ranking#index'
+    get 'ranking/:user_id', on: :member, to: 'ranking#show', as: :ranking_log
   end
+
 
   root to: 'home#index'
 end
