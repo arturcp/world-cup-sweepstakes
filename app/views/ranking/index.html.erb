@@ -10,6 +10,9 @@
     <div class="col s12 l4 offset-l4 center-align">
       <div class="card">
         <div class="card-content">
+          <div class="right-align last-update">
+            Last update: <%= @last_update.strftime('%d/%m %H:%M') %>
+          </div>
           <% if @ranking.length > 0 %>
             <%= render 'ranking_table', ranking: @ranking %>
           <% else %>

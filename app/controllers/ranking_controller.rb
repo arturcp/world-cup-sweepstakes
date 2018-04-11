@@ -8,6 +8,7 @@ class RankingController < ApplicationController
   def index
     @tournament = Tournament.find_by(slug: params[:tournament_name])
     @ranking = Ranking.fetch(@tournament)
+    @last_update = RankingLog.last.created_at
   end
 
   def show
