@@ -15,7 +15,8 @@
 }
 
 .logout-button,
-.user-name {
+.user-name,
+.ranking-link {
   float: right;
   margin-right: 10px;
   color: #000;
@@ -26,15 +27,13 @@
 }
 
 .admin-header {
-  .logout-button a {
+  .logout-button a,
+  .nav-wrapper.user a,
+  .ranking-link a {
     color: #fff;
   }
 
-  .nav-wrapper.user a {
-    color: #fff;
-  }
-
-  .user-name {
+  .user-name, .ranking-link {
     color: #fff;
   }
 }

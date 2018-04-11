@@ -21,6 +21,9 @@
           <div class="logout-button">
             <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
           </div>
+          <div class="ranking-link">
+            <%= link_to 'Ranking', ranking_tournament_path(@tournament) %> |
+          </div>
           <div class="user-name">
             Hello, <%= current_user.name %> |
           </div>
