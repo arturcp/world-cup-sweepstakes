@@ -14,11 +14,15 @@
 //= require rails-ujs
 //= require materialize
 //= require select2
-//= require page
-//= require almond
+//= require js.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
 //= require event-dispatcher
 //= require loading
 //= require jquery-confirm2
+
+//= require page
+//= require almond
 
 //= require_tree .
 

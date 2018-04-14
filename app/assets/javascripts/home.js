@@ -14,6 +14,10 @@
 //= require rails-ujs
 //= require materialize
 //= require select2
+//= require js.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
+
 //= require page
 //= require almond
 

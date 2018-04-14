@@ -7,6 +7,7 @@ end
 
 ruby '2.5.0'
 
+gem 'browser-timezone-rails'
 gem 'devise'
 gem 'friendly_id', '~> 5.1.0'
 gem 'jbuilder', '~> 2.5'
