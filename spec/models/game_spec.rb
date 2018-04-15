@@ -132,4 +132,76 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#penalties' do
+    let(:round) { rounds(:first_round) }
+    let(:host) { teams(:brazil) }
+    let(:visitor) { teams(:colombia) }
+    let(:host_score) { 1 }
+    let(:visitor_score) { 1 }
+
+    let(:game) do
+      Game.new(round: round, allows_tie: allows_tie, host: host,
+        visitor: visitor, host_score: host_score, visitor_score: visitor_score)
+    end
+
+    context 'when game allows tie' do
+      let(:allows_tie) { true }
+
+      it 'returns false' do
+        expect(game).not_to be_penalties
+      end
+    end
+
+    context 'when game does not allow ties' do
+      let(:allows_tie) { false }
+
+      context 'when game does not have a defined host' do
+        let(:host) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined visitor' do
+        let(:visitor) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined host score' do
+        let(:host_score) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined visitor score' do
+        let(:visitor_score) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when the scores don\'t match' do
+        let(:host_score) { 2 }
+        let(:visitor_score) { 1 }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game ended in a tie with penalties' do
+        it 'returns true' do
+          expect(game).to be_penalties
+        end
+      end
+    end
+  end
 end

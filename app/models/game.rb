@@ -36,4 +36,10 @@ class Game < ApplicationRecord
 
     "#{host.name} x #{visitor.name}"
   end
+
+  def penalties?
+    !allows_tie && host_id.present? && visitor_id.present? &&
+      host_score.present? && visitor_score.present? &&
+      host_score == visitor_score
+  end
 end

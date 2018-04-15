@@ -16,6 +16,21 @@ class UserGuessesController < ApplicationController
     head :ok
   end
 
+  def update
+    user_guess = UserGuess.find_by(user: current_user, game: game)
+    winner_id = params[:winner_id]
+
+    if game.penalties? && [game.host_id, game.visitor_id].include?(winner_id)
+      if current_user.tournament_admin?(tournament)
+        game.update!(penalties_winner_id: winner_id)
+      else
+        user_guess.update(penalties_winner_id: winner_id)
+      end
+    end
+
+    head :ok
+  end
+
   private
 
   def tournament
@@ -23,7 +38,7 @@ class UserGuessesController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:game_id, :host_score, :visitor_score)
+    params.permit(:game_id, :host_score, :visitor_score, :tournament_name)
   end
 
   def game

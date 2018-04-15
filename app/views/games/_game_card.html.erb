@@ -6,6 +6,7 @@
     </div>
     <div class="col s2 versus center-align">X</div>
     <div class="col s5 left-align" data-type="visitor">
+      <% debugger if game.id == 49 %>
       <%= render 'team', team: game.visitor, team_defined: game.visitor.id.present?,
         alignment: 'left', game: game, score: game.visitor_score %>
     </div>
@@ -13,6 +14,8 @@
   <div class="game-info">
     <%= game.date.strftime('%d/%m %H:%M') %> <%= game.place %>
   </div>
+
+  <%= render('penalties', game: game) unless game.allows_tie %>
 
   <% is_admin = current_user.tournament_admin?(@tournament) %>
   <% if is_admin %>

@@ -10,6 +10,8 @@ define('score-changes', function(Events) {
   fn._bindEvents = function() {
     this.element.forceNumericOnly();
     this.element.on('keyup', $.proxy(this._changeScore, this));
+
+    $('[data-winner]').on('change', $.proxy(this._selectPenaltiesWinner, this));
   };
 
   fn._changeScore = function(event) {
@@ -25,10 +27,16 @@ define('score-changes', function(Events) {
     //it will be triggered only with numbers
     if (key >= 48 && key <= 57) {
       var gameId = parseInt(element.attr('data-game-id')),
-          card = element.parents('.card-content'),
-          inputs = card.find('.input-for-score');
+          cardPanel = element.parents('.card-panel'),
+          cardContent = element.parents('.card-content'),
+          inputs = cardContent.find('.input-for-score'),
+          penaltiesContainer = cardPanel.find('.penalties-container');
 
       this._update(gameId, $(inputs[0]), $(inputs[1]));
+
+      if (penaltiesContainer.length > 0) {
+        this._managePenalties(penaltiesContainer, inputs);
+      }
     }
   };
 
@@ -65,6 +73,40 @@ define('score-changes', function(Events) {
         });
       }
     });
+  };
+
+  fn._managePenalties = function(container, inputs) {
+    var hostScore = $(inputs[0]).val() || 0,
+        visitorScore = $(inputs[1]).val() || 0,
+        regularTimeWarning = container.find('.regular-time-warning'),
+        winnerSelection = container.find('.winner-selection');
+
+    if (hostScore === visitorScore) {
+      regularTimeWarning.addClass('hide');
+      winnerSelection.removeClass('hide');
+    } else {
+      regularTimeWarning.removeClass('hide');
+      winnerSelection.addClass('hide');
+    }
+  };
+
+  fn._selectPenaltiesWinner = function(event) {
+    var element = $(event.currentTarget),
+        container = element.parents('.card-content'),
+        gameId = parseInt(container.attr('data-game-id'));
+
+    $.ajax({
+      type: 'PUT',
+      url: this.url,
+      data: {
+        game_id: gameId,
+        winner_id: element.attr('data-winner')
+      },
+      error: function(data) {
+        M.toast({ html: 'Hum... something didn\'t work as expected' });
+      }
+    });
+
   };
 
   return ScoreChanges;

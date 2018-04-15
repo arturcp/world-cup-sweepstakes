@@ -1,0 +1,24 @@
+.penalties-container {
+  min-height: 87px;
+
+  .description {
+    color: #8e8e8e;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  span {
+    color: #000;
+  }
+
+  .winner-selection {
+  }
+
+  .regular-time-warning {
+    padding-top: 12px;
+  }
+}
+
+.card .card-action.penalties-container {
+  background-color: #fafbd9;
+}
