@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+system('bin/rake db:drop db:create db:migrate && rake create_world_cup_2018 && bin/rake db:seed')
