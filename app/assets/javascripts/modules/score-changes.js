@@ -26,9 +26,9 @@ define('score-changes', function(Events) {
 
     //it will be triggered only with numbers
     if (key >= 48 && key <= 57) {
-      var gameId = parseInt(element.attr('data-game-id')),
-          cardPanel = element.parents('.card-panel'),
+      var cardPanel = element.parents('.card-panel'),
           cardContent = element.parents('.card-content'),
+          gameId = parseInt(cardContent.attr('data-game-id')),
           inputs = cardContent.find('.input-for-score'),
           penaltiesContainer = cardPanel.find('.penalties-container');
 

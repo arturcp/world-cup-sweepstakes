@@ -1,13 +1,15 @@
+<% is_admin = current_user.tournament_admin?(@tournament) %>
+
 <div class="card card-panel <%= 'disabled' if game.passed? %> <%= 'ranking-points-distributed' if game.checked? %>">
   <div class="card-content" data-game-id="<%= id %>">
     <div class="col s5 right-align host-name" data-type="host">
       <%= render 'team', team: game.host, team_defined: game.host.id.present?,
-        alignment: 'right', game: game, score: game.host_score %>
+        alignment: 'right', game: game, score: game.host_score, is_admin: is_admin %>
     </div>
     <div class="col s2 versus center-align">X</div>
     <div class="col s5 left-align" data-type="visitor">
       <%= render 'team', team: game.visitor, team_defined: game.visitor.id.present?,
-        alignment: 'left', game: game, score: game.visitor_score %>
+        alignment: 'left', game: game, score: game.visitor_score, is_admin: is_admin %>
     </div>
   </div>
   <div class="game-info">
@@ -16,7 +18,6 @@
 
   <%= render('penalties', game: game) unless game.allows_tie %>
 
-  <% is_admin = current_user.tournament_admin?(@tournament) %>
   <% if is_admin %>
     <div class="card-action center-align ranking-button-container">
       <a class="waves-effect waves-light btn-small green ranking-button">

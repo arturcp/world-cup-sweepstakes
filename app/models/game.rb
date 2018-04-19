@@ -24,8 +24,6 @@ class Game < ApplicationRecord
   end
 
   def passed?
-    return false unless date
-
     date - 1.hour <= Time.current
   end
 
