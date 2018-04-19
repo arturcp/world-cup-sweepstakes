@@ -92,7 +92,8 @@ define('score-changes', function(Events) {
 
   fn._selectPenaltiesWinner = function(event) {
     var element = $(event.currentTarget),
-        container = element.parents('.card-content'),
+        panel = element.parents('.card-panel'),
+        container = panel.find('.card-content'),
         gameId = parseInt(container.attr('data-game-id'));
 
     $.ajax({

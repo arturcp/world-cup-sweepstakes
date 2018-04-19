@@ -24,6 +24,8 @@ class Game < ApplicationRecord
   end
 
   def passed?
+    return false unless date
+
     date - 1.hour <= Time.current
   end
 
@@ -41,5 +43,14 @@ class Game < ApplicationRecord
     !allows_tie && host_id.present? && visitor_id.present? &&
       host_score.present? && visitor_score.present? &&
       host_score == visitor_score
+  end
+
+  def clone
+    new_game = self.dup
+    new_game.host_score = nil
+    new_game.visitor_score = nil
+    new_game.penalties_winner_id = nil
+
+    new_game
   end
 end

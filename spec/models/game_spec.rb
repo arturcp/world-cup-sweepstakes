@@ -204,4 +204,49 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#clone' do
+    let(:game) { games(:braxcol) }
+    let(:cloned_game) { game.clone }
+
+    it 'returns an instance of game' do
+      expect(cloned_game).to be_a Game
+    end
+
+    it 'has no id' do
+      expect(cloned_game.id).to be_nil
+    end
+
+    it 'does not have host_score' do
+      expect(cloned_game.host_score).to be_nil
+    end
+
+    it 'does not have visitor_score' do
+      expect(cloned_game.visitor_score).to be_nil
+    end
+
+    it 'does not have a penalty winner' do
+      expect(cloned_game.penalties_winner_id).to be_nil
+    end
+
+    it 'has the same host_id' do
+      expect(cloned_game.host_id).to eq(game.host_id)
+    end
+
+    it 'has the same visitor_id' do
+      expect(cloned_game.visitor_id).to eq(game.visitor_id)
+    end
+
+    it 'has the same place' do
+      expect(cloned_game.place).to eq(game.place)
+    end
+
+    it 'has the same date' do
+      expect(cloned_game.date).to eq(game.date)
+    end
+
+    it 'has the same round' do
+      expect(cloned_game.round_id).to eq(game.round_id)
+    end
+  end
 end

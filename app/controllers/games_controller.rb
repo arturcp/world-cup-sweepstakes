@@ -7,6 +7,7 @@ class GamesController < ApplicationController
 
   def index
     @tournament = Tournament.friendly.find(params[:tournament_name])
+    @user_guesses = current_user.user_guesses
   end
 
   def update

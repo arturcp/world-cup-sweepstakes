@@ -17,8 +17,22 @@
   .regular-time-warning {
     padding-top: 12px;
   }
+
+  [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    border-color: #bb9e51;
+    background-color: #f4ce68;
+  }
 }
 
 .card .card-action.penalties-container {
   background-color: #fafbd9;
+
+  &.waiting-for-winner {
+    background-color: #fbd8da;
+    border: 1px solid #f00;
+
+    .description {
+      color: #000;
+    }
+  }
 }

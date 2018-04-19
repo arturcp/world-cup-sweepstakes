@@ -1,9 +1,10 @@
-<div class="card-action center-align penalties-container">
+<% is_tie = game.host_score == game.visitor_score %>
+<div class="card-action center-align penalties-container <%= 'waiting-for-winner' if !game.penalties_winner_id.present? && is_tie && game.host_id && game.visitor_id %>">
   <% if game.host_id.present? && game.visitor.id.present? %>
-    <section class="regular-time-warning">
+    <section class="regular-time-warning <%= 'hide' if is_tie %>">
       Game finished in the regular time
     </section>
-    <section class="winner-selection hide">
+    <section class="winner-selection <%= 'hide' unless is_tie %>">
       <p class="description">And the winner is...</p>
         <label>
           <input name="victor" type="radio" <%= 'checked' if game.penalties_winner_id == game.host_id %>

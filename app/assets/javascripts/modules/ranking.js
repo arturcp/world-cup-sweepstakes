@@ -64,14 +64,16 @@ define('ranking', function(Events) {
   fn._calculateRanking = function(event) {
     var button = $(event.currentTarget),
         container = button.parents('.card-panel'),
+        content = container.find('.card-content'),
         inputs = container.find('.input-for-score'),
         hostInput = $(inputs[0]),
-        visitorInput = $(inputs[1]);
+        visitorInput = $(inputs[1]),
+        gameId = content.attr('data-game-id');
 
     $.ajax({
       type: 'POST',
       url: this.url,
-      data: { game_id: parseInt(button.attr('data-game-id')) },
+      data: { game_id: gameId },
       beforeSend: function() {
         Loading.show();
       },
