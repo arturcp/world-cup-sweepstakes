@@ -32,15 +32,13 @@ class Game < ApplicationRecord
   end
 
   def title
-    return '' unless host.id && visitor.id
+    return '' unless teams_defined?
 
     "#{host.name} x #{visitor.name}"
   end
 
   def penalties?
-    !allows_tie && host_id.present? && visitor_id.present? &&
-      host_score.present? && visitor_score.present? &&
-      host_score == visitor_score
+    !allows_tie && teams_defined? && tie?
   end
 
   def clone
@@ -50,5 +48,17 @@ class Game < ApplicationRecord
     new_game.penalties_winner_id = nil
 
     new_game
+  end
+
+  def teams_defined?
+    host_id.present? && visitor_id.present?
+  end
+
+  def tie?
+    host_score == visitor_score && has_score?
+  end
+
+  def has_score?
+    host_score.present? && visitor_score.present?
   end
 end

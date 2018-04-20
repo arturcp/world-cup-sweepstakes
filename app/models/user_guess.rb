@@ -7,7 +7,8 @@ class UserGuess < ApplicationRecord
   belongs_to :game
 
   def_delegators :game, :host, :visitor, :date, :place, :allows_tie,
-    :passed?, :checked?, :host_id, :visitor_id
+    :passed?, :checked?, :host_id, :visitor_id, :tie?, :has_score?,
+    :teams_defined?
 
   def self.save_guess(user:, game:, host_score:, visitor_score:)
     return if game.passed?

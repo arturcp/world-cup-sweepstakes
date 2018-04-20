@@ -6,4 +6,6 @@ page.at('games#index', function() {
   new TeamSelection('.unconfirmed-team');
   new ScoreChanges();
   new Ranking();
+
+  $('[data-checked]').prop('checked', true);
 });

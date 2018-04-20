@@ -5,7 +5,8 @@ class RankingCalculator
 
   RULES = [
     Rules::WinnerRule,
-    Rules::ScoreRule
+    Rules::ScoreRule,
+    Rules::PenaltiesRule
   ].freeze
 
   def initialize(game)

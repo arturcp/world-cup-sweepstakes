@@ -16,31 +16,34 @@ define('score-changes', function(Events) {
 
   fn._changeScore = function(event) {
     var key = event.charCode || event.keyCode || 0,
-        element = $(event.currentTarget);
+        element = $(event.currentTarget),
+        cardPanel = element.parents('.card-panel'),
+        cardContent = element.parents('.card-content'),
+        gameId = parseInt(cardContent.attr('data-game-id')),
+        inputs = cardContent.find('.input-for-score'),
+        penaltiesContainer = cardPanel.find('.penalties-container');
 
     if (element.val() === '') {
       EventDispatcher.trigger('scoreRemoved', {
         container: element.parents('.card-panel')
       });
-    }
-
-    //it will be triggered only with numbers
-    if (key >= 48 && key <= 57) {
-      var cardPanel = element.parents('.card-panel'),
-          cardContent = element.parents('.card-content'),
-          gameId = parseInt(cardContent.attr('data-game-id')),
-          inputs = cardContent.find('.input-for-score'),
-          penaltiesContainer = cardPanel.find('.penalties-container');
-
-      this._update(gameId, $(inputs[0]), $(inputs[1]));
 
       if (penaltiesContainer.length > 0) {
-        this._managePenalties(penaltiesContainer, inputs);
+        this._showExtraTimeResult(penaltiesContainer, inputs);
+      }
+    }
+
+    //The update will be triggered only when a number is typed in the inputs.
+    if (key >= 48 && key <= 57) {
+      this._updateScore(gameId, $(inputs[0]), $(inputs[1]));
+
+      if (penaltiesContainer.length > 0) {
+        this._showExtraTimeResult(penaltiesContainer, inputs);
       }
     }
   };
 
-  fn._update = function(gameId, hostInput, visitorInput) {
+  fn._updateScore = function(gameId, hostInput, visitorInput) {
     var hostScore = hostInput.val() || 0,
         visitorScore = visitorInput.val() || 0,
         self = this;
@@ -75,18 +78,23 @@ define('score-changes', function(Events) {
     });
   };
 
-  fn._managePenalties = function(container, inputs) {
-    var hostScore = $(inputs[0]).val() || 0,
-        visitorScore = $(inputs[1]).val() || 0,
+  fn._showExtraTimeResult = function(container, inputs) {
+    var hostInput = $(inputs[0]),
+        visitorInput = $(inputs[1]),
+        hostScore = hostInput.val() || 0,
+        visitorScore = visitorInput.val() || 0,
         regularTimeWarning = container.find('.regular-time-warning'),
         winnerSelection = container.find('.winner-selection');
 
-    if (hostScore === visitorScore) {
-      regularTimeWarning.addClass('hide');
-      winnerSelection.removeClass('hide');
-    } else {
-      regularTimeWarning.removeClass('hide');
-      winnerSelection.addClass('hide');
+    regularTimeWarning.addClass('hide');
+    winnerSelection.addClass('hide');
+
+    if (hostInput.val() && visitorInput.val()) {
+      if (hostScore === visitorScore) {
+        winnerSelection.removeClass('hide');
+      } else {
+        regularTimeWarning.removeClass('hide');
+      }
     }
   };
 

@@ -2,10 +2,14 @@
 
 module Rules
   class ScoreRule < Base
-    def calculate
-      return 3 if guess.game.score == guess.score
+    SCORE_POINTS = 3
 
-      0
+    def calculate
+      if guess.game.score == guess.score
+        SCORE_POINTS
+      else
+        0
+      end
     end
 
     def reason

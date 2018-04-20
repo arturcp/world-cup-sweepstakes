@@ -30,3 +30,23 @@ unconfirmed:
   date: <%= Time.current %>
   round: first_round
   status: 0
+host_wins_penalties:
+  host: brazil
+  visitor: russia
+  allows_tie: false
+  date: <%= Time.current %>
+  round: first_round
+  host_score: 1
+  visitor_score: 1
+  penalties_winner_id: brazil.id
+  status: 0
+visitor_wins_penalties:
+  host: brazil
+  visitor: russia
+  allows_tie: false
+  date: <%= Time.current %>
+  round: first_round
+  host_score: 1
+  visitor_score: 1
+  penalties_winner_id: russia.id
+  status: 0

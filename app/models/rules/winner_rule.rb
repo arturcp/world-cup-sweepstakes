@@ -2,10 +2,14 @@
 
 module Rules
   class WinnerRule < Base
-    def calculate
-      return 1 if game_result(guess.game) == game_result(guess)
+    SCORE_POINTS = 1
 
-      0
+    def calculate
+      if game_result(guess.game) == game_result(guess)
+        SCORE_POINTS
+      else
+        0
+      end
     end
 
     def reason

@@ -249,4 +249,77 @@ RSpec.describe Game, type: :model do
       expect(cloned_game.round_id).to eq(game.round_id)
     end
   end
+
+  describe '#teams_defined?' do
+    let(:brazil) { teams(:brazil) }
+    let(:colombia) { teams(:colombia) }
+
+    context 'when only host is defined' do
+      it 'returns false' do
+        expect(described_class.new(host: brazil)).not_to be_teams_defined
+      end
+    end
+
+    context 'when only visitor is defined' do
+      it 'returns false' do
+        expect(described_class.new(visitor: colombia)).not_to be_teams_defined
+      end
+    end
+
+    context 'when host and visitor are defined' do
+      it 'returns true' do
+        expect(described_class.new(host: brazil, visitor: colombia)).to be_teams_defined
+      end
+    end
+  end
+
+  describe '#has_score?' do
+    context 'when only host has score' do
+      it 'returns false' do
+        expect(described_class.new(host_score: 1)).not_to be_has_score
+      end
+    end
+
+    context 'when only visitor has score' do
+      it 'returns false' do
+        expect(described_class.new(visitor_score: 2)).not_to be_has_score
+      end
+    end
+
+    context 'when both host and visitor have scores' do
+      it 'returns true' do
+        expect(described_class.new(host_score: 1, visitor_score: 1)).to be_has_score
+      end
+    end
+  end
+
+  describe '#tie?' do
+    context 'when both host and visitor have scores' do
+      context 'and host and visitor have the same score' do
+        it 'returns true' do
+          expect(described_class.new(host_score: 1, visitor_score: 1)).to be_tie
+        end
+      end
+
+      context 'and host and visitor have different scores' do
+        it 'returns false' do
+          expect(described_class.new(host_score: 1, visitor_score: 2)).not_to be_tie
+        end
+      end
+    end
+
+    context 'when the game has not a complete score set' do
+      context 'and only host has score' do
+        it 'returns false' do
+          expect(described_class.new(host_score: 1)).not_to be_tie
+        end
+      end
+
+      context 'and only visitor has score' do
+        it 'returns false' do
+          expect(described_class.new(visitor_score: 2)).not_to be_tie
+        end
+      end
+    end
+  end
 end
