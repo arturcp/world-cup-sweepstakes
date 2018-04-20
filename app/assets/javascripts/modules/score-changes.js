@@ -92,6 +92,7 @@ define('score-changes', function(Events) {
     if (hostInput.val() && visitorInput.val()) {
       if (hostScore === visitorScore) {
         winnerSelection.removeClass('hide');
+        winnerSelection.parents('.card-panel').find('.penalties-container').addClass('waiting-for-winner');
       } else {
         regularTimeWarning.removeClass('hide');
       }
@@ -113,6 +114,9 @@ define('score-changes', function(Events) {
       },
       error: function(data) {
         M.toast({ html: 'Hum... something didn\'t work as expected' });
+      },
+      success: function(data) {
+        panel.find('.waiting-for-winner').removeClass('waiting-for-winner');
       }
     });
 

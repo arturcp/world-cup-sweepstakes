@@ -11,7 +11,7 @@
               'point'.pluralize(log.points),
               'for guessing the',
               "<span class='#{log.reason}'>",
-              log.reason,
+              log.reason.gsub('_', ' '),
               '</span>',
               'on',
               log.game.title
@@ -21,6 +21,10 @@
         <div class="ranking-log-scores">
           <p>Game score: <%= log.game.score %></p>
           <p>User guess: <%= log.guess %></p>
+
+          <% if log.game.penalties? %>
+            <p>Winner: <%= log.game.penalties_winner_id == log.game.host_id ? log.game.host.name : log.game.visitor.name %></p>
+          <% end %>
         </div>
       </li>
     <% end %>
