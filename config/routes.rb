@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get :games, on: :member, to: 'games#index'
     put :games, on: :member, to: 'games#update'
     post :user_guesses, on: :member, to: 'user_guesses#create'
+    put :user_guesses, on: :member, to: 'user_guesses#update'
     post :ranking, on: :member, to: 'ranking#create'
     get :ranking, on: :member, to: 'ranking#index'
     get 'ranking/:user_id', on: :member, to: 'ranking#show', as: :ranking_log

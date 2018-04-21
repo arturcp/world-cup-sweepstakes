@@ -20,7 +20,7 @@
           <% klass = 'offset-l3' if round.games.count == 1 %>
           <% round.games.order(:date).each_with_index do |game, index| %>
             <div class="col m12 l6 <%= klass %>">
-              <%= render 'game_card', game: game %>
+              <%= render 'game_card', game: current_match(current_user, game, @user_guesses), id: game.id %>
             </div>
           <% end %>
         </div>

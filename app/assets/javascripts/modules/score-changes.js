@@ -1,4 +1,4 @@
-define('score-changes', function(Events) {
+define('score-changes', function() {
   function ScoreChanges() {
     this.element = $('.input-for-score');
     this.url = $('#games-container').attr('data-update-score-url');
@@ -14,7 +14,12 @@ define('score-changes', function(Events) {
 
   fn._changeScore = function(event) {
     var key = event.charCode || event.keyCode || 0,
-        element = $(event.currentTarget);
+        element = $(event.currentTarget),
+        cardPanel = element.parents('.card-panel'),
+        cardContent = element.parents('.card-content'),
+        gameId = parseInt(cardContent.attr('data-game-id')),
+        inputs = cardContent.find('.input-for-score'),
+        penaltiesContainer = cardPanel.find('.penalties-container');
 
     if (element.val() === '') {
       EventDispatcher.trigger('scoreRemoved', {
@@ -22,17 +27,13 @@ define('score-changes', function(Events) {
       });
     }
 
-    //it will be triggered only with numbers
+    //The update will be triggered only when a number is typed in the inputs.
     if (key >= 48 && key <= 57) {
-      var gameId = parseInt(element.attr('data-game-id')),
-          card = element.parents('.card-content'),
-          inputs = card.find('.input-for-score');
-
-      this._update(gameId, $(inputs[0]), $(inputs[1]));
+      this._updateScore(gameId, $(inputs[0]), $(inputs[1]));
     }
   };
 
-  fn._update = function(gameId, hostInput, visitorInput) {
+  fn._updateScore = function(gameId, hostInput, visitorInput) {
     var hostScore = hostInput.val() || 0,
         visitorScore = visitorInput.val() || 0,
         self = this;

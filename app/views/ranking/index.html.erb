@@ -11,12 +11,15 @@
       <div class="card">
         <div class="card-content">
           <div class="right-align last-update">
-            Last update: <%= @last_update.strftime('%d/%m %H:%M') %>
+            <% if @last_update %>
+              Last update: <%= @last_update.strftime('%d/%m %H:%M') %>
+            <% end %>
           </div>
+
           <% if @ranking.length > 0 %>
             <%= render 'ranking_table', ranking: @ranking %>
           <% else %>
-            There are no rankings for this tournament yet.
+            There is no ranking for this tournament yet.
           <% end %>
 
           <%= link_to root_path, class: 'waves-effect waves-light btn-small button' do %>

@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 class UserGuess < ApplicationRecord
+  extend Forwardable
+
   belongs_to :user
   belongs_to :game
 
+  def_delegators :game, :host, :visitor, :date, :place, :allows_tie,
+    :passed?, :checked?, :host_id, :visitor_id, :tie?, :has_score?,
+    :teams_defined?
+
   def self.save_guess(user:, game:, host_score:, visitor_score:)
-    return if game.passed?
+    return if game.passed? || game.checked?
 
     guess = find_or_initialize_by(user: user, game: game)
     guess.host_score = host_score

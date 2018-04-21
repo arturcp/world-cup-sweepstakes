@@ -24,12 +24,12 @@ RSpec.describe Rules::WinnerRule, type: :rule do
       expect(described_class.new(guess).calculate).to eq(1)
     end
 
-    it 'gives one point if user guessed the game draw' do
+    it 'gives no point if user guessed the game draw' do
       game = Game.new(host: brazil, visitor: colombia, host_score: 2, visitor_score: 2)
       guess = UserGuess.new(user: user, game: game, host_score: 3, visitor_score: 3)
       allow(guess).to receive(:game).and_return(game)
 
-      expect(described_class.new(guess).calculate).to eq(1)
+      expect(described_class.new(guess).calculate).to be_zero
     end
 
     it 'gives no points if the user bet in the host, but the visitor won' do

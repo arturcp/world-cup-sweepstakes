@@ -1,0 +1,41 @@
+.penalties-container {
+  min-height: 90px;
+
+  .description {
+    color: #8e8e8e;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  span {
+    color: #000;
+  }
+
+  .regular-time-warning {
+    padding-top: 12px;
+  }
+
+  [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    border-color: #bb9e51;
+    background-color: #f4ce68;
+  }
+}
+
+.card .card-action.penalties-container {
+  border-radius: 4px;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+
+
+  &.waiting-for-winner {
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+
+    .description {
+      color: #000;
+    }
+  }
+}

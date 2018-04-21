@@ -2,10 +2,15 @@
 
 module Rules
   class WinnerRule < Base
-    def calculate
-      return 1 if game_result(guess.game) == game_result(guess)
+    SCORE_POINTS = 1
 
-      0
+    def calculate
+      official_result = game_result(guess)
+      if official_result != :draw && game_result(guess.game) == official_result
+        SCORE_POINTS
+      else
+        0
+      end
     end
 
     def reason

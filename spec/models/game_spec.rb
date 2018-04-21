@@ -132,4 +132,194 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#penalties' do
+    let(:round) { rounds(:first_round) }
+    let(:host) { teams(:brazil) }
+    let(:visitor) { teams(:colombia) }
+    let(:host_score) { 1 }
+    let(:visitor_score) { 1 }
+
+    let(:game) do
+      Game.new(round: round, allows_tie: allows_tie, host: host,
+        visitor: visitor, host_score: host_score, visitor_score: visitor_score)
+    end
+
+    context 'when game allows tie' do
+      let(:allows_tie) { true }
+
+      it 'returns false' do
+        expect(game).not_to be_penalties
+      end
+    end
+
+    context 'when game does not allow ties' do
+      let(:allows_tie) { false }
+
+      context 'when game does not have a defined host' do
+        let(:host) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined visitor' do
+        let(:visitor) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined host score' do
+        let(:host_score) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game does not have a defined visitor score' do
+        let(:visitor_score) { nil }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when the scores don\'t match' do
+        let(:host_score) { 2 }
+        let(:visitor_score) { 1 }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game ended in a tie with penalties' do
+        it 'returns true' do
+          expect(game).to be_penalties
+        end
+      end
+    end
+  end
+
+  describe '#clone' do
+    let(:game) { games(:braxcol) }
+    let(:cloned_game) { game.clone }
+
+    it 'returns an instance of game' do
+      expect(cloned_game).to be_a Game
+    end
+
+    it 'has no id' do
+      expect(cloned_game.id).to be_nil
+    end
+
+    it 'does not have host_score' do
+      expect(cloned_game.host_score).to be_nil
+    end
+
+    it 'does not have visitor_score' do
+      expect(cloned_game.visitor_score).to be_nil
+    end
+
+    it 'does not have a penalty winner' do
+      expect(cloned_game.penalties_winner_id).to be_nil
+    end
+
+    it 'has the same host_id' do
+      expect(cloned_game.host_id).to eq(game.host_id)
+    end
+
+    it 'has the same visitor_id' do
+      expect(cloned_game.visitor_id).to eq(game.visitor_id)
+    end
+
+    it 'has the same place' do
+      expect(cloned_game.place).to eq(game.place)
+    end
+
+    it 'has the same date' do
+      expect(cloned_game.date).to eq(game.date)
+    end
+
+    it 'has the same round' do
+      expect(cloned_game.round_id).to eq(game.round_id)
+    end
+  end
+
+  describe '#teams_defined?' do
+    let(:brazil) { teams(:brazil) }
+    let(:colombia) { teams(:colombia) }
+
+    context 'when only host is defined' do
+      it 'returns false' do
+        expect(described_class.new(host: brazil)).not_to be_teams_defined
+      end
+    end
+
+    context 'when only visitor is defined' do
+      it 'returns false' do
+        expect(described_class.new(visitor: colombia)).not_to be_teams_defined
+      end
+    end
+
+    context 'when host and visitor are defined' do
+      it 'returns true' do
+        expect(described_class.new(host: brazil, visitor: colombia)).to be_teams_defined
+      end
+    end
+  end
+
+  describe '#has_score?' do
+    context 'when only host has score' do
+      it 'returns false' do
+        expect(described_class.new(host_score: 1)).not_to be_has_score
+      end
+    end
+
+    context 'when only visitor has score' do
+      it 'returns false' do
+        expect(described_class.new(visitor_score: 2)).not_to be_has_score
+      end
+    end
+
+    context 'when both host and visitor have scores' do
+      it 'returns true' do
+        expect(described_class.new(host_score: 1, visitor_score: 1)).to be_has_score
+      end
+    end
+  end
+
+  describe '#tie?' do
+    context 'when both host and visitor have scores' do
+      context 'and host and visitor have the same score' do
+        it 'returns true' do
+          expect(described_class.new(host_score: 1, visitor_score: 1)).to be_tie
+        end
+      end
+
+      context 'and host and visitor have different scores' do
+        it 'returns false' do
+          expect(described_class.new(host_score: 1, visitor_score: 2)).not_to be_tie
+        end
+      end
+    end
+
+    context 'when the game has not a complete score set' do
+      context 'and only host has score' do
+        it 'returns false' do
+          expect(described_class.new(host_score: 1)).not_to be_tie
+        end
+      end
+
+      context 'and only visitor has score' do
+        it 'returns false' do
+          expect(described_class.new(visitor_score: 2)).not_to be_tie
+        end
+      end
+    end
+  end
 end
