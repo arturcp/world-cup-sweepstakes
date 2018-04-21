@@ -8,6 +8,7 @@ task create_world_cup_2018: :environment do
   Round.delete_all
   Team.delete_all
   Tournament.delete_all
+  UserGuess.delete_all
 
   puts 'Creating users...'
   admin = User.create!(email: 'admin@youse.com.br', name: 'Admin', password: ENV['ADMIN_PASSWORD'], confirmed_at: Time.now)
