@@ -1,4 +1,7 @@
 <label>
-  <input name="victor" type="radio" <%= 'data-checked' if checked %> data-winner="<%= team.id %>" />
+  <input name="victor" type="radio"
+    <%= 'data-checked' if checked %> data-winner="<%= team.id %>"
+    <%= 'disabled' if game_passed %>
+  />
   <span><%= team.name %></span>
 </label>

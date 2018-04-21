@@ -1,6 +1,6 @@
 <% is_admin = current_user.tournament_admin?(@tournament) %>
 
-<div class="card card-panel <%= 'disabled' if game.passed? %> <%= 'ranking-points-distributed' if game.checked? %>">
+<div class="card card-panel <%= 'disabled' if game.passed? || game.checked? %> <%= 'ranking-points-distributed' if game.checked? %>">
   <div class="card-content" data-game-id="<%= id %>">
     <div class="col s5 right-align host-name" data-type="host">
       <%= render 'team', team: game.host, team_defined: game.host.id.present?,

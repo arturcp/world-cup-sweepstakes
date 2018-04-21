@@ -5,7 +5,7 @@
 
 <%= image_tag team.flag, class: 'flag', data: { for: team.name } %>
 
-<% guess_unavailable = game.passed? || !team_defined %>
+<% guess_unavailable = game.passed? || game.checked? || !team_defined %>
 <%=
   text_field_tag nil, nil,
     class: "#{alignment}-align input-for-score",

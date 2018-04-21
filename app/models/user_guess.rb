@@ -11,7 +11,7 @@ class UserGuess < ApplicationRecord
     :teams_defined?
 
   def self.save_guess(user:, game:, host_score:, visitor_score:)
-    return if game.passed?
+    return if game.passed? || game.checked?
 
     guess = find_or_initialize_by(user: user, game: game)
     guess.host_score = host_score
