@@ -22,8 +22,8 @@
           <p>Game score: <%= log.game.score %></p>
           <p>User guess: <%= log.guess %></p>
 
-          <% if log.game.penalties? %>
-            <p>Winner: <%= log.game.penalties_winner_id == log.game.host_id ? log.game.host.name : log.game.visitor.name %></p>
+          <% if log.game.penalties? && log.reason == 'penalties_winner' %>
+            <p><%= log.game.penalties_winner_id == log.game.host_id ? log.game.host.name : log.game.visitor.name %> won the match in the penalties.</p>
           <% end %>
         </div>
       </li>

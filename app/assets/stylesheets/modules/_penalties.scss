@@ -11,9 +11,6 @@
     color: #000;
   }
 
-  .winner-selection {
-  }
-
   .regular-time-warning {
     padding-top: 12px;
   }
@@ -25,11 +22,17 @@
 }
 
 .card .card-action.penalties-container {
-  background-color: #fafbd9;
+  border-radius: 4px;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+
 
   &.waiting-for-winner {
-    background-color: #fbd8da;
-    border: 1px solid #f00;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
 
     .description {
       color: #000;

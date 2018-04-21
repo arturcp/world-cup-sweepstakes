@@ -1,4 +1,4 @@
-define('ranking', function(Events) {
+define('ranking', function() {
   function Ranking() {
     this.buttons = $('.ranking-button');
     this.url = $('#games-container').attr('data-ranking-url');
@@ -40,7 +40,8 @@ define('ranking', function(Events) {
 
   fn._scoreChanged = function(payload) {
     var container = payload.container,
-        button = container.find('.ranking-button');
+        button = container.find('.ranking-button'),
+        penaltiesWinner = payload.container.parent().find('.waiting-for-winner');
 
     if (container.hasClass('ranking-points-distributed')) {
       button.addClass('invisible');
@@ -70,6 +71,14 @@ define('ranking', function(Events) {
         visitorInput = $(inputs[1]),
         gameId = content.attr('data-game-id');
 
+    if (container.find('.waiting-for-winner').length > 0) {
+      M.toast({
+        html: 'You have to define the winner of the penalties first :(',
+        classes: 'danger-toast'
+      });
+      return;
+    }
+
     $.ajax({
       type: 'POST',
       url: this.url,
@@ -85,6 +94,7 @@ define('ranking', function(Events) {
         Loading.hide();
         container.addClass('ranking-points-distributed');
         button.addClass('invisible');
+        M.toast({ html: 'Points distributed!' });
       }
     });
   };

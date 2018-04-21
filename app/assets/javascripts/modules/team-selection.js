@@ -72,15 +72,15 @@ define('team-selection', function() {
               self._updateUnconfirmedTeam(gameId, hostId, visitorId);
             }
           },
-          cancel: function(){
-            // console.log('the user clicked cancel');
-          }
+          cancel: function() {}
         }
       });
     }
   };
 
   fn._updateUnconfirmedTeam = function(gameId, hostId, visitorId) {
+    var self = this;
+
     $.ajax({
       type: 'PUT',
       url: this.url,
@@ -105,8 +105,19 @@ define('team-selection', function() {
           select.after($('<span class="team-name">' + data[0].text + '</span>'));
           select.remove();
         });
+
+        self._updateRadioButtons(container, hostId, visitorId);
       }
     });
+  };
+
+  fn._updateRadioButtons = function(container, hostId, visitorId) {
+    var radios = container.parent().find('.penalties-container input[type="radio"]'),
+        hostName = container.find('[data-type="host"] span.team-name').html(),
+        visitorName = container.find('[data-type="visitor"] span.team-name').html();
+
+    $(radios[0]).attr('data-winner', hostId).parent().find('span').html(hostName);
+    $(radios[1]).attr('data-winner', visitorId).parent().find('span').html(visitorName);
   };
 
   return TeamSelection;

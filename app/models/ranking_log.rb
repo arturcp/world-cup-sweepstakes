@@ -8,6 +8,7 @@ class RankingLog < ApplicationRecord
   enum reason: {
     winner: 0,
     score: 1,
-    penalties_winner: 2
+    penalties_winner: 2,
+    draw: 3
   }
 end

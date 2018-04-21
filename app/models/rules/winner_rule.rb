@@ -5,7 +5,8 @@ module Rules
     SCORE_POINTS = 1
 
     def calculate
-      if game_result(guess.game) == game_result(guess)
+      official_result = game_result(guess)
+      if official_result != :draw && game_result(guess.game) == official_result
         SCORE_POINTS
       else
         0
