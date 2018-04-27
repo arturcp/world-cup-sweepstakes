@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :user_guesses, dependent: :destroy
   has_many :ranking_logs
 
-  APPROVED_DOMAINS = ['youse.com.br']
+  APPROVED_DOMAINS = ['youse.com.br', 'youse.co']
 
   validates :email, presence: true, if: :domain_check
 
