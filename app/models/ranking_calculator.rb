@@ -6,7 +6,6 @@ class RankingCalculator
   RULES = [
     Rules::WinnerRule,
     Rules::ScoreRule,
-    Rules::PenaltiesRule,
     Rules::TieRule
   ].freeze
 
