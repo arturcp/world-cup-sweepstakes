@@ -1,5 +1,6 @@
 <% has_score = game.host_score.present? && game.visitor_score.present? %>
 <% is_tie = game.host_score == game.visitor_score && has_score %>
+<% guess_unavailable = game.passed? || game.checked? || !is_tie %>
 
 <section class="extra-time <%= 'hide1' if !is_tie || !has_score %>">
   <p class="title">Extra time</p>
@@ -8,7 +9,7 @@
         <%=
           text_field_tag nil, nil,
             class: 'right-align input-for-score',
-            disabled: false,
+            disabled: guess_unavailable,
             value: 0,
             maxlength: 2,
             data: {
@@ -21,7 +22,7 @@
         <%=
           text_field_tag nil, nil,
             class: 'left-align input-for-score',
-            disabled: false,
+            disabled: guess_unavailable,
             value: 0,
             maxlength: 2,
             data: {
