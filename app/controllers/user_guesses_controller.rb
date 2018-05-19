@@ -6,20 +6,20 @@ class UserGuessesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    if current_user.tournament_admin?(tournament)
-      game.update!(host_score: host_score, visitor_score: visitor_score)
-    else
-      UserGuess.save_guess(user: current_user, game: game,
-        host_score: host_score, visitor_score: visitor_score)
-    end
+    # if current_user.tournament_admin?(tournament)
+    #   game.update!(host_score: host_score, visitor_score: visitor_score)
+    # else
+    #   UserGuess.save_guess(user: current_user, game: game,
+    #     host_score: host_score, visitor_score: visitor_score)
+    # end
 
     head :ok
   end
 
   def update
-    user_guess = UserGuess.find_by(user: current_user, game: game)
-
-    send("update_#{params[:step]}")
+    # user_guess = UserGuess.find_by(user: current_user, game: game)
+    #
+    # send("update_#{params[:step]}")
 
     head :ok
   end

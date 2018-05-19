@@ -1,6 +1,5 @@
 define('score-changes', function() {
   function ScoreChanges() {
-    this.element = $('.input-for-score');
     this.url = $('#games-container').attr('data-update-score-url');
     this._bindEvents();
   };
@@ -8,8 +7,8 @@ define('score-changes', function() {
   var fn = ScoreChanges.prototype;
 
   fn._bindEvents = function() {
-    this.element.forceNumericOnly();
-    this.element.on('keyup', $.proxy(this._changeScore, this));
+    var inputs = $('.card-content .input-for-score');
+    inputs.on('keyup', $.proxy(this._changeScore, this));
   };
 
   fn._changeScore = function(event) {

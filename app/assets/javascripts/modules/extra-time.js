@@ -29,10 +29,13 @@ define('extra-time', ['score'], function(Score) {
 
     if (regularTimeScore.isTie()) {
       extraTimeScore.enable();
+      EventDispatcher.trigger('extraTimeScoreChanged', {
+        container: extraTimeContainer, score: extraTimeScore });
     } else {
       extraTimeScore.disable();
-      this._updateExtraTimeScore(extraTimeContainer);
     }
+
+    this._updateExtraTimeScore(extraTimeContainer);
   };
 
   fn._extraTimeScoreChanged = function(event) {

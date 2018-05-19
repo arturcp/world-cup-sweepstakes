@@ -1,4 +1,4 @@
-define('penalties', function() {
+define('penalties', ['score'], function(Score) {
   function Penalties() {
     this.url = $('#games-container').attr('data-update-score-url');
     this._bindEvents();
@@ -7,41 +7,56 @@ define('penalties', function() {
   var fn = Penalties.prototype;
 
   fn._bindEvents = function() {
-    EventDispatcher.on('scoreRemoved', $.proxy(this._scoreChanged, this));
-    EventDispatcher.on('scoreChanged', $.proxy(this._scoreChanged, this));
-    EventDispatcher.on('extraTimeScoreRemoved', $.proxy(this._extraTimeScoreChanged, this));
-    EventDispatcher.on('extraTimeScoreChanged', $.proxy(this._extraTimeScoreChanged, this));
+    EventDispatcher.on('scoreRemoved', $.proxy(this._onScoreChanged, this));
+    EventDispatcher.on('scoreChanged', $.proxy(this._onScoreChanged, this));
+    EventDispatcher.on('extraTimeScoreRemoved',
+      $.proxy(this._onExtraTimeScoreChanged, this));
+    EventDispatcher.on('extraTimeScoreChanged',
+      $.proxy(this._onExtraTimeScoreChanged, this));
 
     $('[data-winner]').on('change', $.proxy(this._selectPenaltiesWinner, this));
   };
 
-  fn._scoreChanged = function(payload) {
+  fn._onScoreChanged = function(payload) {
     var penaltiesContainer = payload.container.find('.penalties-container'),
-        inputs = payload.container.find('.input-for-score');
+        extraTimeContainer = payload.container.find('.input-for-score');
 
     if (penaltiesContainer.length > 0) {
-      this._onScoreChanged(penaltiesContainer, inputs);
+      var regularTimeScore = new Score(payload.container),
+          extraTimeScore = new Score(extraTimeContainer);
+
+      this._togglePenaltiesFields(penaltiesContainer, regularTimeScore,
+        extraTimeScore);
     }
   };
 
-  fn._onScoreChanged = function(container, inputs) {
-    var hostInput = $(inputs[0]),
-        visitorInput = $(inputs[1]),
-        hostScore = hostInput.val() || 0,
-        visitorScore = visitorInput.val() || 0,
-        regularTimeWarning = container.find('.regular-time-warning'),
+  fn._onExtraTimeScoreChanged = function(payload) {
+    var cardPanel = payload.container.parents('.card-panel'),
+        penaltiesContainer = cardPanel.find('.penalties-container');
+
+    if (penaltiesContainer.length > 0) {
+      var regularTimeScore = new Score(cardPanel.find('.card-content')),
+          extraTimeScore = new Score(cardPanel.find('[data-extra-time-container]'));
+
+      this._togglePenaltiesFields(penaltiesContainer, regularTimeScore,
+        extraTimeScore);
+    }
+  };
+
+  fn._togglePenaltiesFields = function(container, regularTimeScore, extraTimeScore) {
+    var regularTimeWarning = container.find('.regular-time-warning'),
         winnerSelection = container.find('.winner-selection');
 
     regularTimeWarning.addClass('hide');
     winnerSelection.addClass('hide');
 
-    if (hostInput.val() && visitorInput.val()) {
-      if (hostScore === visitorScore) {
-        winnerSelection.removeClass('hide');
-        winnerSelection.parents('.card-panel').find('.penalties-container').addClass('waiting-for-winner');
-      } else {
-        regularTimeWarning.removeClass('hide');
-      }
+    if (regularTimeScore.isTie() && extraTimeScore.isTie()) {
+      winnerSelection.removeClass('hide');
+      winnerSelection.parents('.card-panel').find('.penalties-container').addClass('waiting-for-winner');
+      $('[data-winner]').prop('checked', false);
+    } else {
+      regularTimeWarning.removeClass('hide');
+      winnerSelection.parents('.card-panel').find('.penalties-container').removeClass('waiting-for-winner');
     }
   };
 

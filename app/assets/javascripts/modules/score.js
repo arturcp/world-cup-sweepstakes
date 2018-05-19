@@ -5,8 +5,8 @@ define('score', function() {
     this.hostInput = $(inputs[0]);
     this.visitorInput = $(inputs[1]);
 
-    this.hostScore = this.hostInput.val() || 0;
-    this.visitorScore = this.visitorInput.val() || 0;
+    this.hostScore = parseInt(this.hostInput.val()) || 0;
+    this.visitorScore = parseInt(this.visitorInput.val()) || 0;
   };
 
   var fn = Score.prototype;
