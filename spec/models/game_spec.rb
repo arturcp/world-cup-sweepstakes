@@ -345,4 +345,34 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#extra_time_tie?' do
+    context 'when both host and visitor have extra time scores' do
+      context 'and host and visitor have the same score' do
+        it 'returns true' do
+          expect(described_class.new(extra_time_host_score: 1, extra_time_visitor_score: 1)).to be_extra_time_tie
+        end
+      end
+
+      context 'and host and visitor have different scores' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_host_score: 1, extra_time_visitor_score: 2)).not_to be_extra_time_tie
+        end
+      end
+    end
+
+    context 'when the game has not a complete extra time score set' do
+      context 'and only host has score' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_host_score: 1)).not_to be_extra_time_tie
+        end
+      end
+
+      context 'and only visitor has score' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_visitor_score: 2)).not_to be_extra_time_tie
+        end
+      end
+    end
+  end
 end
