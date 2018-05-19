@@ -45,6 +45,8 @@ class Game < ApplicationRecord
     new_game = self.dup
     new_game.host_score = nil
     new_game.visitor_score = nil
+    new_game.extra_time_host_score = nil
+    new_game.extra_time_visitor_score = nil
     new_game.penalties_winner_id = nil
 
     new_game

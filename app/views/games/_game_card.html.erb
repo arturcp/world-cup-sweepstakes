@@ -16,7 +16,7 @@
     <%= game.date.strftime('%d/%m %H:%M') %> <%= game.place %>
   </div>
 
-  <%= render('extra_time', game: game) unless game.allows_tie %>
+  <%= render('extra_time', game: game, id: id) unless game.allows_tie %>
   <%= render('penalties', game: game) unless game.allows_tie %>
 
   <% if is_admin %>

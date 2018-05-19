@@ -232,6 +232,8 @@ RSpec.describe Game, type: :model do
     let(:game) { games(:braxcol) }
     let(:cloned_game) { game.clone }
 
+    before { game.update(extra_time_host_score: 1, extra_time_visitor_score: 2) }
+
     it 'returns an instance of game' do
       expect(cloned_game).to be_a Game
     end
@@ -246,6 +248,14 @@ RSpec.describe Game, type: :model do
 
     it 'does not have visitor_score' do
       expect(cloned_game.visitor_score).to be_nil
+    end
+
+    it 'does not have extra_time_host_score' do
+      expect(cloned_game.extra_time_host_score).to be_nil
+    end
+
+    it 'does not have extra_time_visitor_score' do
+      expect(cloned_game.extra_time_visitor_score).to be_nil
     end
 
     it 'does not have a penalty winner' do

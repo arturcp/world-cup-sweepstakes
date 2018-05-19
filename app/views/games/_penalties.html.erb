@@ -1,5 +1,5 @@
 <% has_score = game.host_score.present? && game.visitor_score.present? %>
-<% is_tie = game.host_score == game.visitor_score && has_score %>
+<% is_tie = game.tie? && game.extra_time_tie? %>
 
 <div class="card-action center-align penalties-container <%= 'waiting-for-winner' if !game.penalties_winner_id.present? && is_tie && game.host_id && game.visitor_id %>">
   <section class="regular-time-warning <%= 'hide' if is_tie || !has_score %>">
