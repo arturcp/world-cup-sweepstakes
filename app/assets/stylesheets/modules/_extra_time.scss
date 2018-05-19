@@ -1,0 +1,21 @@
+.extra-time {
+  padding: 0 35px;
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .host-extra-score{
+    padding-right: 0;
+  }
+
+  .visitor-extra-score {
+    padding-left: 0;
+  }
+
+  .versus {
+    padding-top: 10px;
+  }
+}
