@@ -38,7 +38,7 @@ class Game < ApplicationRecord
   end
 
   def penalties?
-    !allows_tie && teams_defined? && tie?
+    !allows_tie && teams_defined? && tie? && extra_time_tie?
   end
 
   def clone

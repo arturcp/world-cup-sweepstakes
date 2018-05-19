@@ -140,9 +140,14 @@ RSpec.describe Game, type: :model do
     let(:host_score) { 1 }
     let(:visitor_score) { 1 }
 
+    let(:extra_time_host_score) { nil }
+    let(:extra_time_visitor_score) { nil }
+
     let(:game) do
       Game.new(round: round, allows_tie: allows_tie, host: host,
-        visitor: visitor, host_score: host_score, visitor_score: visitor_score)
+        visitor: visitor, host_score: host_score, visitor_score: visitor_score,
+        extra_time_host_score: extra_time_host_score,
+        extra_time_visitor_score: extra_time_visitor_score)
     end
 
     context 'when game allows tie' do
@@ -197,7 +202,25 @@ RSpec.describe Game, type: :model do
         end
       end
 
+      context 'when game ended in a tie but the extra time had a winner' do
+        let(:extra_time_host_score) { 1 }
+        let(:extra_time_visitor_score) { 0 }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game ended in a tie but the extra time is not defined yet' do
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
       context 'when game ended in a tie with penalties' do
+        let(:extra_time_host_score) { 0 }
+        let(:extra_time_visitor_score) { 0 }
+
         it 'returns true' do
           expect(game).to be_penalties
         end
