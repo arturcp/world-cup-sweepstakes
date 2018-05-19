@@ -49,4 +49,11 @@ jQuery.fn.forceNumericOnly = function() {
 
 $(document).on('ready page:load', function() {
   page.dispatch();
+
+  $('.input-for-score').forceNumericOnly();
+  $('.input-for-score').on('blur', function() {
+    if (!$(this).val()) {
+      $(this).val(0);
+    }
+  });
 });

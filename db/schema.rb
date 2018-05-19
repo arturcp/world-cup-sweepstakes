@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415221515) do
+ActiveRecord::Schema.define(version: 20180519194858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20180415221515) do
     t.integer "visitor_score"
     t.integer "status", default: 0
     t.integer "penalties_winner_id"
+    t.integer "extra_time_host_score"
+    t.integer "extra_time_visitor_score"
     t.index ["host_id"], name: "index_games_on_host_id"
     t.index ["round_id"], name: "index_games_on_round_id"
     t.index ["visitor_id"], name: "index_games_on_visitor_id"
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(version: 20180415221515) do
     t.integer "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "extra_time_guess"
     t.index ["game_id"], name: "index_ranking_logs_on_game_id"
     t.index ["tournament_id"], name: "index_ranking_logs_on_tournament_id"
     t.index ["user_id"], name: "index_ranking_logs_on_user_id"
@@ -86,6 +89,8 @@ ActiveRecord::Schema.define(version: 20180415221515) do
     t.integer "host_score", default: 0
     t.integer "visitor_score", default: 0
     t.integer "penalties_winner_id"
+    t.integer "extra_time_host_score"
+    t.integer "extra_time_visitor_score"
     t.index ["game_id"], name: "index_user_guesses_on_game_id"
     t.index ["user_id"], name: "index_user_guesses_on_user_id"
   end

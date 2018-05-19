@@ -4,10 +4,11 @@ class RankingCalculator
   attr_reader :game
 
   RULES = [
-    Rules::WinnerRule,
     Rules::ScoreRule,
-    Rules::PenaltiesRule,
-    Rules::TieRule
+    Rules::WinnerRule,
+    Rules::TieRule,
+    Rules::ExtraTimeRule,
+    Rules::PenaltiesRule
   ].freeze
 
   def initialize(game)
@@ -47,6 +48,7 @@ class RankingCalculator
       user: user,
       game: game,
       guess: guess.score,
+      extra_time_guess: guess.extra_time_score,
       points: points,
       reason: reason
     )

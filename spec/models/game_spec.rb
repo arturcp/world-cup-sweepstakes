@@ -140,9 +140,14 @@ RSpec.describe Game, type: :model do
     let(:host_score) { 1 }
     let(:visitor_score) { 1 }
 
+    let(:extra_time_host_score) { nil }
+    let(:extra_time_visitor_score) { nil }
+
     let(:game) do
       Game.new(round: round, allows_tie: allows_tie, host: host,
-        visitor: visitor, host_score: host_score, visitor_score: visitor_score)
+        visitor: visitor, host_score: host_score, visitor_score: visitor_score,
+        extra_time_host_score: extra_time_host_score,
+        extra_time_visitor_score: extra_time_visitor_score)
     end
 
     context 'when game allows tie' do
@@ -197,7 +202,25 @@ RSpec.describe Game, type: :model do
         end
       end
 
+      context 'when game ended in a tie but the extra time had a winner' do
+        let(:extra_time_host_score) { 1 }
+        let(:extra_time_visitor_score) { 0 }
+
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
+      context 'when game ended in a tie but the extra time is not defined yet' do
+        it 'returns false' do
+          expect(game).not_to be_penalties
+        end
+      end
+
       context 'when game ended in a tie with penalties' do
+        let(:extra_time_host_score) { 0 }
+        let(:extra_time_visitor_score) { 0 }
+
         it 'returns true' do
           expect(game).to be_penalties
         end
@@ -208,6 +231,8 @@ RSpec.describe Game, type: :model do
   describe '#clone' do
     let(:game) { games(:braxcol) }
     let(:cloned_game) { game.clone }
+
+    before { game.update(extra_time_host_score: 1, extra_time_visitor_score: 2) }
 
     it 'returns an instance of game' do
       expect(cloned_game).to be_a Game
@@ -223,6 +248,14 @@ RSpec.describe Game, type: :model do
 
     it 'does not have visitor_score' do
       expect(cloned_game.visitor_score).to be_nil
+    end
+
+    it 'does not have extra_time_host_score' do
+      expect(cloned_game.extra_time_host_score).to be_nil
+    end
+
+    it 'does not have extra_time_visitor_score' do
+      expect(cloned_game.extra_time_visitor_score).to be_nil
     end
 
     it 'does not have a penalty winner' do
@@ -293,6 +326,26 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  describe '#has_extra_time_score?' do
+    context 'when only host has extra time score' do
+      it 'returns false' do
+        expect(described_class.new(extra_time_host_score: 1)).not_to be_has_extra_time_score
+      end
+    end
+
+    context 'when only visitor has extra time score' do
+      it 'returns false' do
+        expect(described_class.new(extra_time_visitor_score: 2)).not_to be_has_extra_time_score
+      end
+    end
+
+    context 'when both host and visitor have extra time scores' do
+      it 'returns true' do
+        expect(described_class.new(extra_time_host_score: 1, extra_time_visitor_score: 1)).to be_has_extra_time_score
+      end
+    end
+  end
+
   describe '#tie?' do
     context 'when both host and visitor have scores' do
       context 'and host and visitor have the same score' do
@@ -318,6 +371,36 @@ RSpec.describe Game, type: :model do
       context 'and only visitor has score' do
         it 'returns false' do
           expect(described_class.new(visitor_score: 2)).not_to be_tie
+        end
+      end
+    end
+  end
+
+  describe '#extra_time_tie?' do
+    context 'when both host and visitor have extra time scores' do
+      context 'and host and visitor have the same score' do
+        it 'returns true' do
+          expect(described_class.new(extra_time_host_score: 1, extra_time_visitor_score: 1)).to be_extra_time_tie
+        end
+      end
+
+      context 'and host and visitor have different scores' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_host_score: 1, extra_time_visitor_score: 2)).not_to be_extra_time_tie
+        end
+      end
+    end
+
+    context 'when the game has not a complete extra time score set' do
+      context 'and only host has score' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_host_score: 1)).not_to be_extra_time_tie
+        end
+      end
+
+      context 'and only visitor has score' do
+        it 'returns false' do
+          expect(described_class.new(extra_time_visitor_score: 2)).not_to be_extra_time_tie
         end
       end
     end

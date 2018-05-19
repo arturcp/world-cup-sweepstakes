@@ -1,0 +1,34 @@
+<% has_score = game.host_score.present? && game.visitor_score.present? %>
+<% is_tie = game.host_score == game.visitor_score && has_score %>
+<% guess_unavailable = game.passed? || game.checked? || !is_tie %>
+
+<section class="extra-time" data-extra-time-container data-game-id="<%= id %>">
+  <p class="title">Extra time</p>
+  <div class="row">
+    <div class="col s5 host-extra-score">
+        <%=
+          text_field_tag nil, nil,
+            class: 'right-align input-for-score',
+            disabled: guess_unavailable,
+            value: game.extra_time_host_score || 0,
+            maxlength: 2,
+            data: {
+              game_id: game.id
+            }
+        %>
+      </div>
+      <div class="col s2 versus center-align">x</div>
+      <div class="col s5 visitor-extra-score">
+        <%=
+          text_field_tag nil, nil,
+            class: 'left-align input-for-score',
+            disabled: guess_unavailable,
+            value: game.extra_time_visitor_score || 0,
+            maxlength: 2,
+            data: {
+              game_id: game.id
+            }
+        %>
+    </div>
+  </div>
+</section>

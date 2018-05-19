@@ -1,69 +1,84 @@
-define('extra-time', function() {
+define('extra-time', ['score'], function(Score) {
   function ExtraTime() {
     this.url = $('#games-container').attr('data-update-score-url');
+    this.inputs = $('[data-extra-time-container] .input-for-score');
     this._bindEvents();
   };
 
   var fn = ExtraTime.prototype;
 
   fn._bindEvents = function() {
-    EventDispatcher.on('scoreRemoved', $.proxy(this._scoreChanged, this));
-    EventDispatcher.on('scoreChanged', $.proxy(this._scoreChanged, this));
+    EventDispatcher.on('scoreRemoved', $.proxy(this._onScoreRemoved, this));
+    EventDispatcher.on('scoreChanged', $.proxy(this._onScoreChanged, this));
 
-    $('[data-winner]').on('change', $.proxy(this._selectPenaltiesWinner, this));
+    this.inputs.on('keyup', $.proxy(this._extraTimeScoreChanged, this));
   };
 
-  fn._scoreChanged = function(payload) {
-    var penaltiesContainer = payload.container.find('.penalties-container'),
-        inputs = payload.container.find('.input-for-score');
+  fn._onScoreChanged = function(payload) {
+    this._toggleExtraTimeFields(payload.container);
+  };
 
-    if (penaltiesContainer.length > 0) {
-      this._showExtraTimeResult(penaltiesContainer, inputs);
+  fn._onScoreRemoved = function(payload) {
+    this._toggleExtraTimeFields(payload.container);
+  };
+
+  fn._toggleExtraTimeFields = function(container) {
+    var extraTimeContainer = container.find('[data-extra-time-container]'),
+        regularTimeScore = new Score(container),
+        extraTimeScore = new Score(extraTimeContainer);
+
+    if (regularTimeScore.isTie()) {
+      extraTimeScore.enable();
+      EventDispatcher.trigger('extraTimeScoreChanged', {
+        container: extraTimeContainer, score: extraTimeScore });
+    } else {
+      extraTimeScore.disable();
+    }
+
+    this._updateExtraTimeScore(extraTimeContainer);
+  };
+
+  fn._extraTimeScoreChanged = function(event) {
+    var key = event.charCode || event.keyCode || 0,
+        element = $(event.currentTarget),
+        container = element.parents('[data-extra-time-container]');
+
+    if (element.val() === '') {
+      EventDispatcher.trigger('extraTimeScoreRemoved', {
+        container: container
+      });
+      element.focus();
+    }
+
+    //The update will be triggered only when a number is typed in the inputs.
+    if (key >= 48 && key <= 57) {
+      this._updateExtraTimeScore(container);
     }
   };
 
-  fn._showExtraTimeResult = function(container, inputs) {
-    var hostInput = $(inputs[0]),
-        visitorInput = $(inputs[1]),
-        hostScore = hostInput.val() || 0,
-        visitorScore = visitorInput.val() || 0,
-        regularTimeWarning = container.find('.regular-time-warning'),
-        winnerSelection = container.find('.winner-selection');
-
-    regularTimeWarning.addClass('hide');
-    winnerSelection.addClass('hide');
-
-    if (hostInput.val() && visitorInput.val()) {
-      if (hostScore === visitorScore) {
-        winnerSelection.removeClass('hide');
-        winnerSelection.parents('.card-panel').find('.penalties-container').addClass('waiting-for-winner');
-      } else {
-        regularTimeWarning.removeClass('hide');
-      }
-    }
-  };
-
-  fn._selectPenaltiesWinner = function(event) {
-    var element = $(event.currentTarget),
-        panel = element.parents('.card-panel'),
-        container = panel.find('.card-content'),
-        gameId = parseInt(container.attr('data-game-id'));
+  fn._updateExtraTimeScore = function(container) {
+    var gameId = container.attr('data-game-id'),
+        score = new Score(container);
 
     $.ajax({
       type: 'PUT',
       url: this.url,
       data: {
+        step: 'extra_time',
         game_id: gameId,
-        winner_id: element.attr('data-winner')
+        extra_time: {
+          host_score: score.hostScore,
+          visitor_score: score.visitorScore
+        }
       },
       error: function(data) {
         M.toast({ html: 'Hum... something didn\'t work as expected' });
       },
       success: function(data) {
-        panel.find('.waiting-for-winner').removeClass('waiting-for-winner');
+        EventDispatcher.trigger('extraTimeScoreChanged', {
+          container: container, score: score });
       }
     });
-
   };
 
   return ExtraTime;

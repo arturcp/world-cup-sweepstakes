@@ -17,16 +17,7 @@ class UserGuessesController < ApplicationController
   end
 
   def update
-    user_guess = UserGuess.find_by(user: current_user, game: game)
-    winner_id = params[:winner_id].to_i
-
-    if game.penalties? && [game.host_id, game.visitor_id].include?(winner_id)
-      if current_user.tournament_admin?(tournament)
-        game.update!(penalties_winner_id: winner_id)
-      else
-        user_guess.update(penalties_winner_id: winner_id)
-      end
-    end
+    send("update_#{params[:step]}")
 
     head :ok
   end
@@ -38,7 +29,8 @@ class UserGuessesController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:game_id, :host_score, :visitor_score, :tournament_name, :winner_id)
+    params.permit(:game_id, :host_score, :visitor_score, :tournament_name,
+      :winner_id, :step, extra_time: {})
   end
 
   def game
@@ -51,5 +43,37 @@ class UserGuessesController < ApplicationController
 
   def visitor_score
     permitted_params[:visitor_score].to_i
+  end
+
+  def update_extra_time
+    return if game.allows_tie?
+
+    host_score = permitted_params.dig(:extra_time, :host_score)
+    visitor_score = permitted_params.dig(:extra_time, :visitor_score)
+
+    if current_user.tournament_admin?(tournament) && game.tie?
+      game.update!(extra_time_host_score: host_score, extra_time_visitor_score: visitor_score)
+    else
+      user_guess = UserGuess.find_by(user: current_user, game: game)
+      user_guess&.update_extra_time(host_score, visitor_score)
+    end
+  end
+
+  def update_penalties
+    return if game.allows_tie?
+
+    winner_id = params[:winner_id].to_i
+
+    if current_user.tournament_admin?(tournament)
+      if game.penalties? && [game.host_id, game.visitor_id].include?(winner_id)
+        game.update!(penalties_winner_id: winner_id)
+      end
+    else
+      user_guess = UserGuess.find_by(user: current_user, game: game)
+
+      if user_guess.penalties? && [user_guess.host_id, user_guess.visitor_id].include?(winner_id)
+        user_guess&.update(penalties_winner_id: winner_id)
+      end
+    end
   end
 end

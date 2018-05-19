@@ -31,6 +31,10 @@ class Game < ApplicationRecord
     "#{host_score} x #{visitor_score}"
   end
 
+  def extra_time_score
+    "#{extra_time_host_score} x #{extra_time_visitor_score}"
+  end
+
   def title
     return '' unless teams_defined?
 
@@ -38,13 +42,15 @@ class Game < ApplicationRecord
   end
 
   def penalties?
-    !allows_tie && teams_defined? && tie?
+    !allows_tie && teams_defined? && tie? && extra_time_tie?
   end
 
   def clone
     new_game = self.dup
     new_game.host_score = nil
     new_game.visitor_score = nil
+    new_game.extra_time_host_score = nil
+    new_game.extra_time_visitor_score = nil
     new_game.penalties_winner_id = nil
 
     new_game
@@ -60,5 +66,13 @@ class Game < ApplicationRecord
 
   def has_score?
     host_score.present? && visitor_score.present?
+  end
+
+  def extra_time_tie?
+    extra_time_host_score == extra_time_visitor_score && has_extra_time_score?
+  end
+
+  def has_extra_time_score?
+    extra_time_host_score.present? && extra_time_visitor_score.present?
   end
 end

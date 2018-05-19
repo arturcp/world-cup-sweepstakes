@@ -45,9 +45,16 @@ RSpec.describe Rules::TieRule, type: :rule do
 
       context 'when the game ended draw' do
         let(:game) { games(:visitor_wins_penalties) }
-        let(:guess) { UserGuess.new(game: game, host_score: 1, visitor_score: 1) }
 
-        it { expect(described_class.new(guess).calculate).to eq(3) }
+        context 'and the score matches' do
+          let(:guess) { UserGuess.new(game: game, host_score: 1, visitor_score: 1) }
+          it { expect(described_class.new(guess).calculate).to eq(0) }
+        end
+
+        context 'and the score does not match' do
+          let(:guess) { UserGuess.new(game: game, host_score: 9, visitor_score: 9) }
+          it { expect(described_class.new(guess).calculate).to eq(1) }
+        end
       end
     end
 
