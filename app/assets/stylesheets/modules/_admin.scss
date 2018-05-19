@@ -3,3 +3,7 @@
     background-color: $admin-color;
   }
 }
+
+.card-panel.disabled .ranking-button-container {
+  visibility: hidden;
+}
