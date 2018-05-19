@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180519170527) do
+ActiveRecord::Schema.define(version: 20180519173704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20180519170527) do
     t.integer "host_score", default: 0
     t.integer "visitor_score", default: 0
     t.integer "penalties_winner_id"
+    t.integer "extra_time_host_score"
+    t.integer "extra_time_visitor_score"
     t.index ["game_id"], name: "index_user_guesses_on_game_id"
     t.index ["user_id"], name: "index_user_guesses_on_user_id"
   end
