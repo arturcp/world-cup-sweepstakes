@@ -18,15 +18,8 @@ class UserGuessesController < ApplicationController
 
   def update
     user_guess = UserGuess.find_by(user: current_user, game: game)
-    winner_id = params[:winner_id].to_i
 
-    if game.penalties? && [game.host_id, game.visitor_id].include?(winner_id)
-      if current_user.tournament_admin?(tournament)
-        game.update!(penalties_winner_id: winner_id)
-      else
-        user_guess.update(penalties_winner_id: winner_id)
-      end
-    end
+    send("update_#{params[:step]}")
 
     head :ok
   end
@@ -38,7 +31,8 @@ class UserGuessesController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:game_id, :host_score, :visitor_score, :tournament_name, :winner_id)
+    params.permit(:game_id, :host_score, :visitor_score, :tournament_name,
+      :winner_id, :step, extra_time: {})
   end
 
   def game
@@ -51,5 +45,21 @@ class UserGuessesController < ApplicationController
 
   def visitor_score
     permitted_params[:visitor_score].to_i
+  end
+
+  def update_extra_time
+    # if game.tie? && !game.allows_tie?
+  end
+
+  def update_penalties
+    winner_id = params[:winner_id].to_i
+
+    if game.penalties? && [game.host_id, game.visitor_id].include?(winner_id)
+      if current_user.tournament_admin?(tournament)
+        game.update!(penalties_winner_id: winner_id)
+      else
+        user_guess.update(penalties_winner_id: winner_id)
+      end
+    end
   end
 end

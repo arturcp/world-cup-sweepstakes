@@ -61,4 +61,12 @@ class Game < ApplicationRecord
   def has_score?
     host_score.present? && visitor_score.present?
   end
+
+  def extra_time_tie?
+    # host_score == visitor_score && has_score?
+  end
+
+  def has_extra_time_score?
+    # host_score.present? && visitor_score.present?
+  end
 end

@@ -2,7 +2,7 @@
 <% is_tie = game.host_score == game.visitor_score && has_score %>
 <% guess_unavailable = game.passed? || game.checked? || !is_tie %>
 
-<section class="extra-time <%= 'hide1' if !is_tie || !has_score %>">
+<section class="extra-time" data-extra-time-container data-game-id="<%= game.id %>">
   <p class="title">Extra time</p>
   <div class="row">
     <div class="col s5 host-extra-score">
