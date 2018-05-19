@@ -31,6 +31,10 @@ class Game < ApplicationRecord
     "#{host_score} x #{visitor_score}"
   end
 
+  def extra_time_score
+    "#{extra_time_host_score} x #{extra_time_visitor_score}"
+  end
+
   def title
     return '' unless teams_defined?
 

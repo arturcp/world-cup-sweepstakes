@@ -35,6 +35,10 @@ class UserGuess < ApplicationRecord
     "#{host_score} x #{visitor_score}"
   end
 
+  def extra_time_score
+    "#{extra_time_host_score} x #{extra_time_visitor_score}"
+  end
+
   def tie?
     host_score == visitor_score && has_score?
   end

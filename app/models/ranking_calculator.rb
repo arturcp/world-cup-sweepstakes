@@ -7,7 +7,8 @@ class RankingCalculator
     Rules::WinnerRule,
     Rules::ScoreRule,
     Rules::PenaltiesRule,
-    Rules::TieRule
+    Rules::TieRule,
+    Rules::ExtraTimeRule
   ].freeze
 
   def initialize(game)
