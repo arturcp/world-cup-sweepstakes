@@ -66,16 +66,6 @@ RSpec.describe RankingCalculator, type: :model do
               user: user,
               game: third_game,
               guess: '3 x 0',
-              points: 1,
-              reason: :winner
-            ).once
-
-          expect(RankingLog).to receive(:create!)
-            .with(
-              tournament: game.tournament,
-              user: user,
-              game: third_game,
-              guess: '3 x 0',
               points: 3,
               reason: :score
             ).once
