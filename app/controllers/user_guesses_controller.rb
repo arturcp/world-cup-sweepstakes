@@ -54,6 +54,8 @@ class UserGuessesController < ApplicationController
     if current_user.tournament_admin?(tournament) && game.tie?
       game.update!(extra_time_host_score: host_score, extra_time_visitor_score: visitor_score)
     else
+      return if game.passed? || game.checked?
+
       user_guess = UserGuess.find_by(user: current_user, game: game)
       user_guess&.update_extra_time(host_score, visitor_score)
     end
@@ -69,6 +71,8 @@ class UserGuessesController < ApplicationController
         game.update!(penalties_winner_id: winner_id)
       end
     else
+      return if game.passed? || game.checked?
+
       user_guess = UserGuess.find_by(user: current_user, game: game)
 
       if user_guess.penalties? && [user_guess.host_id, user_guess.visitor_id].include?(winner_id)

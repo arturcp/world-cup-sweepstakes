@@ -66,6 +66,7 @@ RSpec.describe RankingCalculator, type: :model do
               user: user,
               game: third_game,
               guess: '3 x 0',
+              extra_time_guess: nil,
               points: 3,
               reason: :score
             ).once

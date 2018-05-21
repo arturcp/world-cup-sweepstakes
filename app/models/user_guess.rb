@@ -36,6 +36,8 @@ class UserGuess < ApplicationRecord
   end
 
   def extra_time_score
+    return nil unless extra_time_host_score && extra_time_visitor_score
+
     "#{extra_time_host_score} x #{extra_time_visitor_score}"
   end
 
