@@ -60,25 +60,27 @@ define('extra-time', ['score'], function(Score) {
     var gameId = container.attr('data-game-id'),
         score = new Score(container);
 
-    $.ajax({
-      type: 'PUT',
-      url: this.url,
-      data: {
-        step: 'extra_time',
-        game_id: gameId,
-        extra_time: {
-          host_score: score.hostScore,
-          visitor_score: score.visitorScore
+    if (gameId) {
+      $.ajax({
+        type: 'PUT',
+        url: this.url,
+        data: {
+          step: 'extra_time',
+          game_id: gameId,
+          extra_time: {
+            host_score: score.hostScore,
+            visitor_score: score.visitorScore
+          }
+        },
+        error: function(data) {
+          M.toast({ html: 'Hum... something didn\'t work as expected' });
+        },
+        success: function(data) {
+          EventDispatcher.trigger('extraTimeScoreChanged', {
+            container: container, score: score });
         }
-      },
-      error: function(data) {
-        M.toast({ html: 'Hum... something didn\'t work as expected' });
-      },
-      success: function(data) {
-        EventDispatcher.trigger('extraTimeScoreChanged', {
-          container: container, score: score });
-      }
-    });
+      });
+    }
   };
 
   return ExtraTime;
