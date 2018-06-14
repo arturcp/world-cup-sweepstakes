@@ -69,6 +69,7 @@ define('penalties', ['score'], function(Score) {
     $.ajax({
       type: 'PUT',
       url: this.url,
+      async: false,
       data: {
         step: 'penalties',
         game_id: gameId,

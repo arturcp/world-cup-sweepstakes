@@ -64,6 +64,7 @@ define('extra-time', ['score'], function(Score) {
       $.ajax({
         type: 'PUT',
         url: this.url,
+        async: false,
         data: {
           step: 'extra_time',
           game_id: gameId,

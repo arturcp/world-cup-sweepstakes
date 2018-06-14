@@ -40,6 +40,7 @@ define('score-changes', function() {
     $.ajax({
       type: 'POST',
       url: this.url,
+      async: false,
       data: {
         game_id: gameId,
         host_score: hostScore,
