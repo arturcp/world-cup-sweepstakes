@@ -27,6 +27,7 @@ define('score-changes', function() {
     }
 
     //The update will be triggered only when a number is typed in the inputs.
+    console.log(key);
     if (key >= 48 && key <= 57) {
       this._updateScore(gameId, $(inputs[0]), $(inputs[1]));
     }
