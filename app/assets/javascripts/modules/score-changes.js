@@ -33,7 +33,6 @@ define('score-changes', function() {
   };
 
   fn._updateScore = function(gameId, hostInput, visitorInput) {
-    console.log('update score ' + gameId + ' ' + hostInput + ' ' + visitorInput);
     var hostScore = hostInput.val() || 0,
         visitorScore = visitorInput.val() || 0,
         self = this;
@@ -48,11 +47,9 @@ define('score-changes', function() {
         visitor_score: visitorScore
       },
       error: function(data) {
-        console.log('error');
         M.toast({ html: 'Hum... something didn\'t work as expected' });
       },
       success: function() {
-        console.log('success');
         if (hostInput.val() !== '') {
           hostInput.val(hostScore);
         }
