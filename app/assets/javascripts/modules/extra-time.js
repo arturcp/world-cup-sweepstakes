@@ -51,7 +51,7 @@ define('extra-time', ['score'], function(Score) {
     }
 
     //The update will be triggered only when a number is typed in the inputs.
-    if (key >= 48 && key <= 57) {
+    if ((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) {
       this._updateExtraTimeScore(container);
     }
   };
