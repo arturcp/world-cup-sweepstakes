@@ -54,6 +54,9 @@ define('penalties', ['score'], function(Score) {
       winnerSelection.removeClass('hide');
       winnerSelection.parents('.card-panel').find('.penalties-container').addClass('waiting-for-winner');
       $('[data-winner]').prop('checked', false);
+      var radios = winnerSelection.find('input[type="radio"]');
+      radios.prop('disabled', false);
+      radios.removeAttr('disabled');
     } else {
       regularTimeWarning.removeClass('hide');
       winnerSelection.parents('.card-panel').find('.penalties-container').removeClass('waiting-for-winner');
