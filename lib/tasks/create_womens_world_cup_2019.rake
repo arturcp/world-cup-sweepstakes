@@ -20,11 +20,11 @@ task create_womens_world_cup_2019: :environment do
   italy = Team.create!(name: 'Italy', flag: '//ssl.gstatic.com/onebox/media/sports/logos/joYpsiaYi4GDCqhSRAq5Zg_48x48.png', tournament: world_cup)
 
   puts 'Creating rounds'
-  first_round = Round.create!(tournament: world_cup, name: '1st round')
+  first_round = Round.create!(tournament: world_cup, name: 'What will happen at this game?')
 
   puts 'Creating games'
   puts '1st round...'
+  Game.create!(round: first_round, host: brazil, visitor: australia, allows_tie: true, date: DateTime.parse('2019-06-13 13:00:00') + 3.hours, place: 'Stade de la Mosson')
   # Game.create!(round: first_round, host: brazil, visitor: jamaica, allows_tie: true, date: DateTime.parse('2019-06-09 15:00:00'), place: 'Stade des alpes')
-  Game.create!(round: first_round, host: brazil, visitor: australia, allows_tie: true, date: DateTime.parse('2019-06-13 13:00:00'), place: 'Stade de la Mosson')
-  Game.create!(round: first_round, host: italy, visitor: brazil, allows_tie: true, date: DateTime.parse('2019-06-18 16:00:00'), place: 'Stade du Hainaut')
+  # Game.create!(round: first_round, host: italy, visitor: brazil, allows_tie: true, date: DateTime.parse('2019-06-18 16:00:00'), place: 'Stade du Hainaut')
 end
