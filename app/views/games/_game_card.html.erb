@@ -13,7 +13,8 @@
     </div>
   </div>
   <div class="game-info">
-    <%= game.date.strftime('%d/%m %H:%M') %> <%= game.place %>
+    <%= game.date.strftime('%d/%m %H:%M') %> <%= game.place %><br />
+    <span>Votação aberta até <%= (game.date - 1.hour).strftime('%d/%m %H:%M') %></span>
   </div>
 
   <%= render('extra_time', game: game, id: id) unless game.allows_tie %>
