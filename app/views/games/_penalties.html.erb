@@ -3,11 +3,11 @@
 
 <div class="card-action center-align penalties-container <%= 'waiting-for-winner' if !game.penalties_winner_id.present? && is_tie && game.host_id && game.visitor_id %>">
   <section class="regular-time-warning <%= 'hide' if is_tie || !has_score %>">
-    Game finished in the regular time
+    O jogo terminou no tempo normal
   </section>
 
   <section class="winner-selection <%= 'hide' if !is_tie || !has_score %>">
-    <p class="description">And the winner is...</p>
+    <p class="description">E o vencedor é...</p>
     <%= render 'radio_button', team: game.host, checked: game.penalties_winner_id && game.penalties_winner_id == game.host_id, game_passed: game.passed? || game.checked?  %>
     <%= render 'radio_button', team: game.visitor, checked: game.penalties_winner_id && game.penalties_winner_id == game.visitor_id, game_passed: game.passed? || game.checked?  %>
   </section>

@@ -19,23 +19,23 @@
           )
         %>
         <div class="ranking-log-scores">
-          <p>Game score: <%= log.game.score %></p>
-          <p>User guess: <%= log.guess %></p>
+          <p>Placar do jogo: <%= log.game.score %></p>
+          <p>Palpite: <%= log.guess %></p>
 
           <% if (log.game.tie? && log.game.has_extra_time_score? && log.reason == 'extra_time_score') || (log.game.penalties? && log.reason == 'penalties_winner') %>
             <p>&nbsp;</p>
-            <p>Game extra time score: <%= log.game.extra_time_score %>.</p>
-            <p>User extra time guess: <%= log.extra_time_guess %>.</p>
+            <p>Placar da prorrogação: <%= log.game.extra_time_score %>.</p>
+            <p>Palpite sobre a prorrogação: <%= log.extra_time_guess %>.</p>
           <% end %>
 
           <% if log.game.penalties? && log.reason == 'penalties_winner' %>
             <p>&nbsp;</p>
-            <p><%= log.game.penalties_winner_id == log.game.host_id ? log.game.host.name : log.game.visitor.name %> won the match in the penalties.</p>
+            <p><%= log.game.penalties_winner_id == log.game.host_id ? log.game.host.name : log.game.visitor.name %> venceu o jogo nos pênalties.</p>
           <% end %>
         </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  Nothing to show for this user. Sorry :(
+  Nada para mostrar sobre este usuário :(
 <% end %>

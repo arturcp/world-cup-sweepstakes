@@ -1,16 +1,16 @@
 <header>
-	<h1>World Cup Women's Youse 2019</h1>
-	<h2>Take your chances and guess all the scores</h2>
+	<h1>Copa do mundo de futebol feminino 2019</h1>
+	<h2>Dê seus palpites e adivinhe o resultado dos jogos</h2>
 </header>
 
 <div id="da-slider" class="da-slider">
 	<div class="da-slide da-slide-current">
-		<h2>Make your bet!</h2>
-		<p>How good are you to predict the outcome of soccer games? Check your numerology guru and the horoscope for your star sign, you will need all the help you can get.</p>
+		<h2>Faça suas apostas!</h2>
+		<p>Você é bom em adivinhar o resultado dos jogos? Consulte seu numerólogo e o horóscopo do dia, você vai precisar de toda ajuda que conseguir para liderar esse ranking.</p>
 
     <% if user_signed_in? %>
       <% is_admin = current_user.tournament_admin?(@world_cup) %>
-      <% link_text = 'My guesses' %>
+      <% link_text = 'Palpites' %>
 
       <% if is_admin %>
         <% link_text = 'Admin' %>
@@ -18,10 +18,10 @@
 
       <%= link_to(link_text, games_tournament_path(@world_cup), class: 'da-link') %>
     <% else %>
-      <%= link_to('Sign up', new_user_registration_path, class: 'da-link') %>
+      <%= link_to('Cadastre-se', new_user_registration_path, class: 'da-link') %>
 
       <label class="da-login">
-        <%= link_to('or login', new_user_session_path)  %>
+        <%= link_to('ou entre', new_user_session_path)  %>
       </label>
     <% end %>
 

@@ -9,13 +9,13 @@ class User < ApplicationRecord
   has_many :user_guesses, dependent: :destroy
   has_many :ranking_logs
 
-  APPROVED_DOMAINS = ['youse.com.br', 'youse.co', 'helloyouser.com.br']
+  APPROVED_DOMAINS = ['youse.com.br', 'helloyouser.com.br']
 
   validates :email, presence: true, if: :domain_check
 
   def domain_check
     unless APPROVED_DOMAINS.any? { |word| email.end_with?(word)}
-      errors.add(:email, "is not from a valid domain")
+      errors.add(:email, "não é de um domínio válido")
     end
   end
 
